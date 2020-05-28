@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <!-- Third party libraries -->
+	    <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/blocks_js/jquery.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/js/jquery.cookie-1.4.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/blocks_js/jquery.json.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/blocks_js/jquery.mousewheel.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/blocks_js/jquery.svg.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/blocks_js/jquery.formserialize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/blocks_js/jquery.fancybox.min.js"') }}></script> 
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/blocks_js/fancybox/jquery.fancybox.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='webapp/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css') }}">
+        <!-- Plotly.js -->
+        <script src="{{ url_for('static' ,filename='webapp/js/plotly.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='webapp/css/bootstrap.min.css') }}">
+
+
+        <!--Animara JS Tree -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/animara/css/Aimara.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/animara/css/Example.css') }}">
+        <script src="{{ url_for('static' ,filename='webapp/animara/lib/Aimara.js') }}" type="text/javascript"></script>
+
+        <!-- JavaScript -->
+        <script src="{{ url_for('static' ,filename='webapp/js/alertify.min.js') }}"></script>
+
+        <!-- Alertify -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='webapp/css/alertify.min.css') }}"/>
+
+        <!--BootStrap -->
+        <script src="{{ url_for('static' ,filename='webapp/js/bootstrap.min.js') }}"></script>
+
+        <!--Elfinder-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/css/jquery-ui.min.css') }}">
+        <script src="{{ url_for('static' ,filename='webapp/js/jquery-ui.min.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/css/elfinder.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/css/elfinder-theme.css') }}">
+        <script src="{{ url_for('static' ,filename='webapp/js/elfinder.full.js') }}"></script>
+
+        <!-- block_definitions.js -->
+	    <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/blocks_js/blocks.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/blocks_js/blocks.css') }}" />
+
+        <!-- Demo script -->
+        <script type="text/javascript" src="{{ url_for('static' ,filename='webapp/main.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='webapp/css/style.css') }}" />
+
+        <link rel="Shortcut Icon" href="{{ url_for('static', filename='webapp/favicon.ico') }}" type="image/x-icon" /> 
+        <title>INCF Signal Workflow Designer</title>
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" >INCF Workflow Designer</a>
+            </div>
+            <ul class="nav navbar-nav" id="mainMenu">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">File
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="open">Open Workflow(.json)</a></li>
+                        <li><a href="#" id="save">Save Workflow(.json)</a></li>
+                        <li><a href="#" id="clear">Clear Workflow</a></li>
+                        <li><a href="#" id="import" data-toggle="modal" data-target="#importModal">Import Library (.Jar)</a></li>
+                        <li><a href="#" id="remote" data-toggle="modal" data-target="#elfinderModal">Browse Remote</a></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="undo">Undo [Ctrl/Cmd + Z]</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <input type="checkbox" class="form-check-input" style="margin-left: 20px" id="logLevel" onclick="saveDebugLogEnabled()">
+                            <label class="form-check-label" for="logLevel">Debug logs</label>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Scheduler
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="jobs" data-toggle="modal" data-target="#jobsModal">Jobs List</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--<button class="btn btn-success navbar-btn pull-right" id="execute">Execute</button>-->
+
+            <button class="btn btn-primary navbar-btn pull-right" id="login" data-toggle="modal" data-target="#loginModal">Login/Register</button>
+            <div class="dropdown pull-right" id="myAccount" >
+                <button class="btn btn-primary navbar-btn dropdown-toggle" type="button" data-toggle="dropdown" ><span id="myAccountButton">My Account</span>
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#resetModal">Reset Password</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-success navbar-btn pull-right" id="schedule">Schedule</button>
+        </div>
+    </nav>
+    <!--sidebar-->
+    <div class="col-md-3" id="sidebar">
+        <h2>Library</h2>
+        <a onclick="collapse_all()"><i class="fa fa-toggle-left"></i> </a>
+        <a onclick="expand_all()"><i class="fa fa-toggle-right"></i> </a>
+        <div id="div_tree"></div>
+    </div>
+    <!--canvas-->
+    <div class="col-md-9" id="content">
+        <button class="btn btn-primary toggle-sidebar"><i class="fa fa-bars fa-1x"></i></button>
+        <div id="jobStatus"></div>
+        <div id="blocks" ondrop="drop(event)" ondragover="allowDrop(event)" ></div>
+    </div>
+        
+
+     <!--<span>-->
+            <!--<button class="setLabel">Set the edges label</button>-->
+            <!--<button class="setInfos">Set the block infos</button>-->
+            <!--<button class="setDescriptions">Set the block descriptions</button>-->
+            <!--<button class="resize">Resize the div</button>-->
+            <!--<button class="hideIcons">Hide icons</button>-->
+            <!--<button class="loadBlocks">Load Block Configuration</button>-->
+            <!--<button class="open">Open Workflow</button>-->
+            <!--<button class="save">Save Workflow</button>-->
+            <!--<button class="execute">Execute Workflow</button>-->
+		<!--</span>-->
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Login to Continue</h4>
+                </div>
+                <div class="modal-body">
+                        <div id="loginDiv">
+                            <form method="POST" id="loginForm">
+                                <div class="form-group">
+                                    <label for="loginEmail">Email:</label>
+                                    <input type="text" class="form-control" id="loginEmail" value="" name="email" placeholder="johndoe@gmail.com"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginPassword">Password:</label>
+                                    <input type="password" class="form-control" id="loginPassword" value="" name="password" placeholder="4+ Character Alphanumeric "/>
+                                </div>
+                                <button type="button" class="btn btn-default" id="forgotSubmit" onclick="forgot()">Forgot Password</button>
+                                <span style="color: red;" id="loginError"></span>
+                            </form>
+                        </div>
+
+                        <div style="display:none" id="registerDiv">
+                            <h4>Register</h4>
+                            <form method="POST" id="registerForm">
+                                <div class="form-group">
+                                    <label for="registerName">Name:</label>
+                                    <input type="text" class="form-control" id="registerName" value="" name="name" placeholder="John Doe"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="registerEmail">Email:</label>
+                                    <input type="text" class="form-control" id="registerEmail" value="" name="email" placeholder="johndoe@gmail.com"/>
+                                </div>
+                                <span style="color: red;" id="registerError"></span>
+                            </form>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="primarySubmit" onclick="login()">Submit</button>
+                    <button type="button" class="btn btn-default" id="switch" onclick="showRegister()">Create An Account</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="resetModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Reset Password</h4>
+                </div>
+                <div class="modal-body">
+
+                        <form method="POST" id="resetForm">
+                            <div class="form-group">
+                                <label for="resetCurrent">Current Password:</label>
+                                <input type="password" class="form-control" id="resetCurrent" value="" name="currentPassword" placeholder="Old Password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="resetNew">New Password:</label>
+                                <input type="password" class="form-control" id="resetNew" value="" name="newPassword" placeholder="4+ Character Alphanumeric "/>
+                            </div>
+                            <span style="color: red;" id="resetError"></span>
+                        </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="resetSubmit" onclick="reset()">Reset Password</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Import a JAR library</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                        <div class="form-group">
+                            <label for="package">Package(s)(Comma-separated):</label>
+                            <input type="text" class="form-control" id="package" value="" name="package"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">Jar File:</label>
+                            <input type="file" class="form-control" id="file" name="file"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="public" name="public">Make this JAR public
+                            </label>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="importSubmit" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Elfinder Modal -->
+    <div class="modal fade" id="elfinderModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content modal-fullscreen">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Browser Remote directory</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="elfinder"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Elfinder Modal -->
+    <div class="modal fade" id="browseModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content modal-fullscreen">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Remote File</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="elfinderBrowse"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <!-- Jobs Modal -->
+    <div class="modal fade " role="dialog" id="jobsModal" >
+        <div class="modal-dialog" style="max-width:100% !important; padding: 5px;">
+
+            <!-- Modal content-->
+            <div class="modal-content modal-fullscreen">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Jobs</h4>
+                </div>
+                <div class="modal-body" style="overflow:auto;min-width: 400px;" align="center" >
+                    <table id="jobTable" class="table-bordered" style="text-align: center;" cellpadding=10>
+                        <thead>
+                            <tr>
+                                <th>JobID</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="clearSchedule()">Clear Workflow</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="display:none" id="logModal">
+        <!-- Modal -->
+        <div class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Logs</h4>
+                    </div>
+                    <div class="modal-body" style="overflow:auto">
+
+                        <div class="stdout" >
+                        </div>
+                        <div style="color:red" class="stderr">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div style="display:none" id="graphModal">
+        <!-- Modal -->
+        <div class="modal fade " role="dialog">
+            <div class="modal-dialog" style="max-width:100% !important;align: center">
+
+                <!-- Modal content-->
+                <div class="modal-content modal-fullscreen">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Graph</h4>
+                    </div>
+                    <div class="modal-body" style="overflow:auto">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div style="display:none" id="tableModal">
+        <!-- Modal -->
+        <div class="modal fade " role="dialog">
+            <div class="modal-dialog" style="max-width:100% !important;">
+
+                <!-- Modal content-->
+                <div class="modal-content modal-fullscreen">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Table</h4>
+                    </div>
+                    <div class="modal-body" style="overflow:auto;min-width: 400px;" align="center" >
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modals"></div>
+
+        <script>
+            var cookieName = "wf-designer-debugLogEnabled";
+
+            function saveDebugLogEnabled() {
+                var value = $( "#logLevel" ).prop("checked");
+                $.cookie(cookieName, value);
+
+                if(!value)
+                    $( ".stdout" ).hide();
+                else
+                    $( ".stdout" ).show();
+            }
+
+            function loadDebugLogEnabled() {
+                var value = $.cookie(cookieName);
+                
+                if(value == null)
+                    return false;
+
+                return value === 'true';
+            }
+            
+            $(document).ready(function () {
+                var checked = loadDebugLogEnabled();
+                $( "#logLevel" ).prop("checked", checked);
+                if(!checked)
+                    $( ".stdout" ).hide();
+            })
+        </script>
+    </body>
+    <script>
+            console.log("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=ronak");   
+        </script>
+</html>

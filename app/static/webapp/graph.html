@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph Viewer</title>
+    <script type="text/javascript" src="blocks_js/jquery.js"></script>
+    <script src="js/plotly.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div id="graphDiv">
+</div>
+<script>
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+            return null;
+        }
+        else{
+            return decodeURI(results[1]) || 0;
+        }
+    }
+    $.get("api/workflow/file/"+$.urlParam("graph"), function(data, status){
+        data= JSON.parse(data);
+        var traces=[];
+        for(var p=0;p < data.traces.length ;p++){
+            traces.push(data.traces[p]);
+        }
+        var plot = Plotly.newPlot('graphDiv', traces, data.layout);
+        Plotly.relayout('graphDiv', {
+            'xaxis.autorange': true,
+            'yaxis.autorange': true
+        });
+    });
+
+
+</script>
+</body>
+</html>

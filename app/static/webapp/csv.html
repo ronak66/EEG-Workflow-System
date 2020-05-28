@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSV Viewer</title>
+    <script type="text/javascript" src="blocks_js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+    <!--jExcel--->
+    <script src="js/jquery.jexcel.js"></script>
+    <link rel="stylesheet" href="css/jquery.jexcel.css" type="text/css" />
+</head>
+<body>
+<div id="tableDiv">
+</div>
+<script>
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+            return null;
+        }
+        else{
+            return decodeURI(results[1]) || 0;
+        }
+    }
+    $("#tableDiv").jexcel({
+        csv:"api/workflow/file/"+$.urlParam("csv"),
+        tableOverflow:true
+    });
+</script>
+</body>
+</html>

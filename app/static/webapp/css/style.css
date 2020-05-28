@@ -1,0 +1,87 @@
+
+
+#blocks {
+    width:100%;
+    height:600px;
+    margin:5px;
+    border:2px solid #eee;
+}
+
+/**
+ * Extra CSS
+ */
+.blocks_js_editor .commentblock {
+    background-color:#feffc4;
+    color:#6f4e07;
+    font-style:italic;
+}
+
+.blocks_js_editor .commentblock .blockTitle {
+    background-color:#e8d92f;
+}
+
+.blocks_js_editor .menu_icon_type_Comment {
+    background-image:url('gfx/comment.gif');
+}
+
+.blocks_js_editor .menu_icon_family_Time {
+    background-image:url('gfx/time.png');
+}
+
+.blocks_js_editor .menu_icon_family_Output {
+    background-image:url('gfx/output.png');
+}
+
+.blocks_js_editor .menu_icon_family_Math {
+    background-image:url('gfx/math.png');
+}
+
+.blocks_js_editor .menu_icon_export {
+    background-image:url('gfx/export.png');
+}
+
+.blocks_js_editor .menu_icon_family_Image {
+    background-image:url('gfx/image.png');
+}
+
+button.navbar-btn{
+    text-align: center;
+}
+
+#sidebar {
+    /* for the animation */
+    transition: margin 0.3s ease;
+}
+
+.collapsed {
+    /* hide it for small displays*/
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .collapsed {
+        display: block;
+        /* same width as sidebar */
+        margin-left: -25%;
+    }
+}
+
+#row-main {
+    /* necessary to hide collapsed sidebar */
+    overflow-x: hidden;
+}
+
+#content {
+    /* for the animation */
+    transition: width 0.3s ease;
+}
+
+body .modal-dialog { /* Width */
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+}
+
+.modal.in{
+    text-align: center;
+}
