@@ -8,6 +8,12 @@ from app.server_config import ServerConfig
 template_dir = os.path.abspath('app/static/webapp')
 app = Flask(__name__, template_folder=template_dir)
 app.config.from_object(ServerConfig)
+'''
+refer to - https://itnext.io/how-and-why-have-a-properly-configuration-handling-file-using-flask-1fd925c88f4c
+change above line to:
+app.config.from_envvar('CONFIGURATION_FILE')
+$ export CONFIGURATION_FILE=./config/debug_environment.cfg
+'''
 
 # Database setup
 db = SQLAlchemy(app)
