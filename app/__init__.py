@@ -24,5 +24,8 @@ app.register_blueprint(home)
 from app.user.routes import user
 app.register_blueprint(user, url_prefix='/api/users')
 
+from app.workflow.routes import workflow
+app.register_blueprint(workflow, url_prefix='/api/workflow')
+
 
 print(app.url_map)

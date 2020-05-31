@@ -8,7 +8,7 @@ var contex_menu = {
         elements : [
             {
                 text : 'Node Actions',
-                icon: 'animara/images/blue_key.png',
+                icon: 'static/webapp/animara/images/blue_key.png',
                 action : function(node) {
 
                 },
@@ -16,35 +16,35 @@ var contex_menu = {
                     elements : [
                         {
                             text : 'Toggle Node',
-                            icon: 'animara/images/leaf.png',
+                            icon: 'static/webapp/animara/images/leaf.png',
                             action : function(node) {
                                 node.toggleNode();
                             }
                         },
                         {
                             text : 'Expand Node',
-                            icon: 'animara/images/leaf.png',
+                            icon: 'static/webapp/animara/images/leaf.png',
                             action : function(node) {
                                 node.expandNode();
                             }
                         },
                         {
                             text : 'Collapse Node',
-                            icon: 'animara/images/leaf.png',
+                            icon: 'static/webapp/animara/images/leaf.png',
                             action : function(node) {
                                 node.collapseNode();
                             }
                         },
                         {
                             text : 'Expand Subtree',
-                            icon: 'animara/images/tree.png',
+                            icon: 'static/webapp/animara/images/tree.png',
                             action : function(node) {
                                 node.expandSubtree();
                             }
                         },
                         {
                             text : 'Collapse Subtree',
-                            icon: 'animara/images/tree.png',
+                            icon: 'static/webapp/animara/images/tree.png',
                             action : function(node) {
                                 node.collapseSubtree();
                             }
@@ -54,7 +54,7 @@ var contex_menu = {
             },
             {
                 text : 'Remove Module',
-                icon: 'animara/images/delete.png',
+                icon: 'static/webapp/animara/images/delete.png',
                 action : function(node) {
                     node.removeModule();
                 }
@@ -226,9 +226,9 @@ var contex_menu = {
                     else{
                         alertify.notify('No blocks registered', 'error', 5);
                     }
-                    console.log("--------------------------------------------formdata");
-                    console.log(data);
-                    console.log("--------------------------------------------formdata");
+                    // console.log("--------------------------------------------formdata");
+                    // console.log(data);
+                    // console.log("--------------------------------------------formdata");
                 },
                 error: function (e) {
                     alertify.notify('Error Registering blocks', 'error', 3);
@@ -432,23 +432,23 @@ function initializeTree() {
             for (var jar in library) {
                 var node1;
                 if(permissions[jar]!==true)
-                    node1 = tree.createNode(jar,false,'animara/images/key.png',null,null,'context1');
+                    node1 = tree.createNode(jar,false,'static/webapp/animara/images/key.png',null,null,'context1');
                 else
-                    node1 = tree.createNode(jar,false,'animara/images/group.png',null,null,'context1');
+                    node1 = tree.createNode(jar,false,'static/webapp/animara/images/group.png',null,null,'context1');
                 for(var package in library[jar]){
-                    var node2 = node1.createChildNode(package,false,'animara/images/leaf.png',null,null,'context1');
+                    var node2 = node1.createChildNode(package,false,'static/webapp/animara/images/leaf.png',null,null,'context1');
                     for(var family in library[jar][package]){
-                        var node3 = node2.createChildNode(family, false, 'animara/images/blue_key.png',null,'context1');
+                        var node3 = node2.createChildNode(family, false, 'static/webapp/animara/images/blue_key.png',null,'context1');
                         for(var i=0;i<library[jar][package][family].length; i++){
-                            node3.createChildNode(library[jar][package][family][i], false, 'animara/images/monitor.png',null,'context1');
+                            node3.createChildNode(library[jar][package][family][i], false, 'static/webapp/animara/images/monitor.png',null,'context1');
                         }
                     }
                 }
 
 
             }
-            console.log("--------------------------------------------===========");
-            console.log(data);
+            // console.log("--------------------------------------------===========");
+            // console.log(data);
         },
         error: function (e) {
             alert("Error!"+e.responseText);
@@ -471,7 +471,7 @@ function allowDrop(ev) {
 }
 
 function drag(ev,node_id) {
-    console.log("--------------------------------------------");
+    // console.log("--------------------------------------------");
                     // console.log(data);
     var rel = getBlockRel(tree,node_id);
     var module = getBlockModule(tree,node_id);
@@ -798,9 +798,9 @@ function login(){
         cache: false,
         timeout: 600000,
         success: function (data) {
-            console.log("Login --------------------------------------------");
-            console.log(data.id);
-            console.log("Login --------------------------------------------");
+            // console.log("Login --------------------------------------------");
+            // console.log(data.id);
+            // console.log("Login --------------------------------------------");
             if(data.id){
                 $.cookie("email", data.email, { expires : 10 });
                 $.cookie("token", data.token, { expires : 10 });

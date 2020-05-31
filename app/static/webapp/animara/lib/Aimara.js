@@ -76,14 +76,14 @@ function createTree(p_div,p_backColor,p_contextMenu) {
 						p_parentNode.elementLi.getElementsByTagName("ul")[0].style.display = 'block';
 						v_img = p_parentNode.elementLi.getElementsByTagName("img")[0];
 						v_img.style.visibility = "visible";
-						v_img.src = 'animara/images/collapse.png';
+						v_img.src = 'static/webapp/animara/images/collapse.png';
 						v_img.id = 'toggle_off';
 						}
 						else {
 							p_parentNode.elementLi.getElementsByTagName("ul")[0].style.display = 'none';
 							v_img = p_parentNode.elementLi.getElementsByTagName("img")[0];
 							v_img.style.visibility = "visible";
-							v_img.src = 'animara/images/expand.png';
+							v_img.src = 'static/webapp/animara/images/expand.png';
 							v_img.id = 'toggle_on';
 						}
 					}
@@ -141,7 +141,7 @@ function createTree(p_div,p_backColor,p_contextMenu) {
 			var v_exp_col = null;
 
 			if (p_node.childNodes.length == 0) {
-				v_exp_col = createImgElement('toggle_off','exp_col','animara/images/collapse.png');
+				v_exp_col = createImgElement('toggle_off','exp_col','static/webapp/animara/images/collapse.png');
 				v_exp_col.style.visibility = "hidden";
                 v_span.setAttribute("draggable",true);
                 v_span.setAttribute("ondragstart","drag(event,'"+p_node.id+"')");
@@ -149,10 +149,10 @@ function createTree(p_div,p_backColor,p_contextMenu) {
             }
 			else {
 				if (p_node.expanded) {
-					v_exp_col = createImgElement('toggle_off','exp_col','animara/images/collapse.png');
+					v_exp_col = createImgElement('toggle_off','exp_col','static/webapp/animara/images/collapse.png');
 				}
 				else {
-					v_exp_col = createImgElement('toggle_on','exp_col','animara/images/expand.png');
+					v_exp_col = createImgElement('toggle_on','exp_col','static/webapp/animara/images/expand.png');
 				}
 			}
 
@@ -252,7 +252,7 @@ function createTree(p_div,p_backColor,p_contextMenu) {
 				p_node.expanded = true;
 
 				img.id="toggle_off";
-				img.src = 'animara/images/collapse.png';
+				img.src = 'static/webapp/animara/images/collapse.png';
 				elem_ul = img.parentElement.getElementsByTagName("ul")[0];
 				elem_ul.style.display = 'block';
 
@@ -271,7 +271,7 @@ function createTree(p_div,p_backColor,p_contextMenu) {
 					this.nodeBeforeCloseEvent(p_node);
 
 				img.id="toggle_on";
-				img.src = 'animara/images/expand.png';
+				img.src = 'static/webapp/animara/images/expand.png';
 				elem_ul = img.parentElement.getElementsByTagName("ul")[0];
 				elem_ul.style.display = 'none';
 
@@ -402,7 +402,7 @@ function createTree(p_div,p_backColor,p_contextMenu) {
 
 						if (v_menu.elements[i].submenu!=undefined) {
 							var v_span_more = createSimpleElement('div',null,null);
-							v_span_more.appendChild(createImgElement(null,'menu_img','animara/images/right.png'));
+							v_span_more.appendChild(createImgElement(null,'menu_img','static/webapp/animara/images/right.png'));
 							v_li.appendChild(v_span_more);
 							v_tree.contextMenuLi(v_menu.elements[i].submenu,v_ul,p_node);
 						}
@@ -447,7 +447,7 @@ function createTree(p_div,p_backColor,p_contextMenu) {
 
 				if (p_submenu.elements[i].p_submenu!=undefined) {
 					var v_span_more = createSimpleElement('div',null,null);
-					v_span_more.appendChild(createImgElement(null,'menu_img','animara/images/right.png'));
+					v_span_more.appendChild(createImgElement(null,'menu_img','static/webapp/animara/images/right.png'));
 					v_li.appendChild(v_span_more);
 					v_tree.contextMenuLi(p_submenu.elements[i].p_submenu,v_ul,p_node);
 				}
