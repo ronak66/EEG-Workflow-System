@@ -1,6 +1,7 @@
 var tree;
 var blocks;
 var tracking=0;
+var username;
 
 //Tree Context Menu Structure
 var contex_menu = {
@@ -804,7 +805,9 @@ function login(){
             if(data.id){
                 $.cookie("email", data.email, { expires : 10 });
                 $.cookie("token", data.token, { expires : 10 });
-                document.getElementById("myAccountButton").innerHTML='Hi, '+$.cookie("email");
+                username = data.username
+                // document.getElementById("myAccountButton").innerHTML='Hi, '+$.cookie("email");
+                document.getElementById("myAccountButton").innerHTML='Hi, '+username;
                 $('#loginModal').modal('hide');
                 $("#loginEmail").val("");
                 $("#loginPassword").val("");
@@ -887,6 +890,7 @@ function register(){
     // If you want to add an extra field for the FormData
     data.append("email", $("#registerEmail").val());
     data.append("username", $("#registerName").val());
+    data.append("password", $("#registerPassword").val());
 
     alertify.notify("Please Wait", 'success', 2);
 

@@ -1,6 +1,9 @@
 import json
 from flask import Response, make_response, jsonify
 
+from app.user.auth import Auth
+
+@Auth.auth_required
 def jar_upload():
     json_format = json.dumps(
         [
@@ -40,7 +43,7 @@ def jar_upload():
     )
     return json_format
 
-
+@Auth.auth_required
 def tree_initialization():
     json_format = json.dumps(
         [

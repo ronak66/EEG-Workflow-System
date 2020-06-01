@@ -1,9 +1,32 @@
+import json
 from flask import Blueprint, request, Response, make_response, jsonify
 
-from app.user.controller import user_login
+from app.user.controller import user_login, create_new_user
 
 user = Blueprint('user', __name__)
 
 @user.route("/login", methods=["POST"])
 def login_user():
-    return user_login()
+    try:
+        data = request.form
+        return user_login(data)
+    except Exception as e:
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': e}),
+            status=400
+        )        
+
+
+
+@user.route("/register", methods=["POST"])
+def user_register():
+    try:
+        data = request.form
+        return create_new_user(data)
+    except Exception as e:
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': e}),
+            status=400
+        )

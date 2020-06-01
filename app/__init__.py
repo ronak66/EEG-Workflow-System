@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
 from app.server_config import ServerConfig
@@ -17,6 +18,7 @@ $ export CONFIGURATION_FILE=./config/debug_environment.cfg
 
 # Database setup
 db = SQLAlchemy(app)
+bcrypt = Bcrypt()
 
 from app.home.routes import home
 app.register_blueprint(home)
