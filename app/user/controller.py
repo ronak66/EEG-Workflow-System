@@ -7,8 +7,7 @@ from app.user.model import User
 
 def user_login(data):
     try:
-        print("="*80)
-        print("Logging User:")
+        print("="*80,"Logging User:",sep="\n")
         user = User.get_user_via_email(data['email'])
         if(user and user.check_hash_password(data['password'])):
             token = Auth.generate_token(user.id)
@@ -21,7 +20,7 @@ def user_login(data):
             }
             # res = make_response(jsonify(response))
             print(token)
-            print("="*80)
+            print("Login Sucess","="*80,sep="\n")
             # res.set_cookie(key="session", value=token, domain="eeg-workflow.herokuapp.com", max_age=None)
             return Response(
                 mimetype="application/json",
@@ -30,6 +29,7 @@ def user_login(data):
             )
             # return res, 200, {'Content-Type': 'application/json'}
         else:
+            print("Wrong Password","="*80,sep="\n")
             return Response(
                 mimetype="application/json",
                 response=json.dumps({'error': 'Error with your e-mail/password combination'}),
@@ -45,8 +45,7 @@ def user_login(data):
 
 def create_new_user(data):
     try:
-        print("="*80)
-        print("Creating New User:")
+        print("="*80,"Creating New User:",sep="\n")
         user = User.get_user_via_email(data['email'])
         if(user):
             print("User already exists")
@@ -59,8 +58,8 @@ def create_new_user(data):
         hashed_password = User.generate_hash_password(data['password'])
         new_user = User(username=data['username'], email=data['email'], password=hashed_password)
         new_user.save()
-        print("New User Created")
-        print("="*80)
+        print()
+        print("New User Created","="*80,sep="\n")
         return Response(
             mimetype="application/json",
             response=json.dumps({'success': "New Board Created"}),
@@ -72,3 +71,33 @@ def create_new_user(data):
             response=json.dumps({'error': e}),
             status=400
         )
+
+@Auth.auth_required
+def change_password(data):
+    try:
+        print("="*80,"Changing Password",sep="\n")
+        user_id = g.user['id']
+        user = User.query.get(user_id)
+        if(user and user.check_hash_password(data['currentPassword'])):
+            new_hashed_password = User.generate_hash_password(data['newPassword'])
+            user.password = new_hashed_password
+            user.commit()
+            print("Password Changed","="*80,sep="\n")
+            return Response(
+                mimetype="application/json",
+                response=json.dumps({'success': 'Password Changed'}),
+                status=201
+            )
+        else:
+            print("Incorrect Password","="*80,sep="\n")
+            return Response(
+                mimetype="application/json",
+                response=json.dumps({'error': 'Incorrect Password'}),
+                status=403
+            )
+    except Exception as e:
+        return Response(
+                mimetype="application/json",
+                response=json.dumps({'error': e}),
+                status=400
+            )

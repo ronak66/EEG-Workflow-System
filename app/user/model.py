@@ -26,6 +26,13 @@ class User(db.Model):
             db.session.rollback()
         return
 
+    def commit(self):
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+        return
+
     @staticmethod
     def generate_hash_password(password):
         return bcrypt.generate_password_hash(password, rounds=10).decode("utf-8")

@@ -12,12 +12,14 @@ def jar_upload():
                 "name": "EEGDataTable",
                 "description": "",
                 "family": "Visualization",
-                "fields": [{
-                    "name": "EEGData",
-                    "type": "EEGDataList",
-                    "card": "1-1",
-                    "attrs": "input"
-                }]
+                "fields": [
+                    {
+                        "name": "EEGData",
+                        "type": "EEGDataList",
+                        "card": "1-1",
+                        "attrs": "input"
+                    }
+                ]
             },
             {
                 "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
@@ -38,7 +40,7 @@ def jar_upload():
                         "attrs": "output"
                     }
                 ]
-            },
+            }
         ]
     )
     return json_format
