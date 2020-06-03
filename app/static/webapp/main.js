@@ -560,7 +560,8 @@ function getWorkflow(jobId){
     if(jobId===0) return;
     $.ajax({
         type: "GET",
-        url: "api/workflow/jobs/"+jobId,
+        url: "api/workflow/jobs",
+        data: jobId,
         processData: false,
         contentType: false,
         cache: false,
@@ -573,6 +574,9 @@ function getWorkflow(jobId){
             data=JSON.parse(data);
             blocks.clear();
             blocks.load(data.workflow);
+            console.log("==================================");
+            console.log(data.workflow);
+            console.log("==================================");
             var jobStatus= document.getElementById("jobStatus");
             jobStatus.innerHTML="Job ID:"+data.id+" Status:"+data.status+" Start Time:"+data.startTime+
                 " End Time:"+data.endTime;
@@ -610,7 +614,8 @@ function getWorkflowStatus(jobId,intervalId){
     }
     $.ajax({
         type: "GET",
-        url: "api/workflow/jobs/"+jobId,
+        url: "api/workflow/jobs",
+        data: jobId,
         processData: false,
         contentType: false,
         cache: false,

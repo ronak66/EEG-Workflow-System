@@ -58,7 +58,6 @@ def create_new_user(data):
         hashed_password = User.generate_hash_password(data['password'])
         new_user = User(username=data['username'], email=data['email'], password=hashed_password)
         new_user.save()
-        print()
         print("New User Created","="*80,sep="\n")
         return Response(
             mimetype="application/json",
