@@ -34,6 +34,9 @@ def schedule():
     if(request.method == "POST"):
         try:
             data = request.form
+            print("-"*80)
+            print(data)
+            print("-"*80)
             return schedule_new_job(data)
         except Exception as e:
             return Response(
@@ -52,10 +55,10 @@ def schedule():
             )
 
 
-@workflow.route("/jobs", methods=["GET"])
+@workflow.route("/jobs", methods=["POST"])
 def job_workflow():
     try:
-        data = request.data
+        data = request.form
         return get_job_details(data)
     except Exception as e:
         return Response(

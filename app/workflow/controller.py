@@ -40,6 +40,40 @@ def jar_upload():
                         "attrs": "output"
                     }
                 ]
+            },
+            {
+                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                "name": "FilterBlock",
+                "description": "",
+                "family": "Preprocessing",
+                "fields": [
+                    {
+                        "defaultValue": "1",
+                        "name": "Lower cutoff frequency",
+                        "description": "",
+                        "type": "NUMBER",
+                        "attrs": "editable"
+                    },
+                    {
+                        "defaultValue": "30",
+                        "name": "High cutoff frequency",
+                        "description": "",
+                        "type": "NUMBER",
+                        "attrs": "editable"
+                    },
+                    {
+                        "name": "EEGData",
+                        "type": "EEGDataList",
+                        "card": "1-1",
+                        "attrs": "input"
+                    },
+                    {
+                        "name": "EEGData",
+                        "type": "EEGDataList",
+                        "card": "*-*",
+                        "attrs": "output"
+                    }
+                ]
             }
         ]
     )
@@ -90,6 +124,42 @@ def tree_initialization():
                         "attrs": "output"
                     }
                 ]
+            },
+            {
+                "owner": "guest@guest.com",
+                "public": False,
+                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                "name": "FilterBlock",
+                "description": "",
+                "family": "Preprocessing",
+                "fields": [
+                    {
+                        "defaultValue": "1",
+                        "name": "Lower cutoff frequency",
+                        "description": "",
+                        "type": "NUMBER",
+                        "attrs": "editable"
+                    },
+                    {
+                        "defaultValue": "30",
+                        "name": "High cutoff frequency",
+                        "description": "",
+                        "type": "NUMBER",
+                        "attrs": "editable"
+                    },
+                    {
+                        "name": "EEGData",
+                        "type": "EEGDataList",
+                        "card": "1-1",
+                        "attrs": "input"
+                    },
+                    {
+                        "name": "EEGData",
+                        "type": "EEGDataList",
+                        "card": "*-*",
+                        "attrs": "output"
+                    }
+                ]
             }
         ]
     )
@@ -129,7 +199,7 @@ def get_all_scheduled_jobs():
 
 @Auth.auth_required
 def get_job_details(data):
-    print("/"*80,data)
+    # print("/"*80,data['jobId'])
     json_format = json.dumps({
             "workflow": {
                 "blocks": [

@@ -557,11 +557,14 @@ function clearTracking() {
 }
 
 function getWorkflow(jobId){
+    var formData = new FormData();
+    formData.append("jobId", jobId);
     if(jobId===0) return;
     $.ajax({
-        type: "GET",
+        type: "POST",
+        enctype: 'multipart/form-data',
         url: "api/workflow/jobs",
-        data: jobId,
+        data: formData,
         processData: false,
         contentType: false,
         cache: false,
@@ -612,10 +615,13 @@ function getWorkflowStatus(jobId,intervalId){
         clearInterval(intervalId);
         return;
     }
+    var data = new FormData();
+    data.append("jobId", jobId);
     $.ajax({
-        type: "GET",
+        type: "POST",
+        enctype: 'multipart/form-data',
         url: "api/workflow/jobs",
-        data: jobId,
+        data: data,
         processData: false,
         contentType: false,
         cache: false,
