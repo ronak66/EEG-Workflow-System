@@ -9,7 +9,8 @@ workflow = Blueprint('workflow', __name__)
 @workflow.route("/upload", methods=["POST"])
 def JAR_upload():
     try:
-        return jar_upload()
+        data = request.form
+        return jar_upload(data)
     except Exception as e:
         return Response(
             mimetype="application/json",

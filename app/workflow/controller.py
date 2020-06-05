@@ -2,9 +2,10 @@ import json
 from flask import Response, make_response, jsonify
 
 from app.user.auth import Auth
+from app.workflow.dummy import a
 
 @Auth.auth_required
-def jar_upload():
+def jar_upload(data):
     json_format = json.dumps(
         [
             {
@@ -81,88 +82,89 @@ def jar_upload():
 
 @Auth.auth_required
 def tree_initialization():
-    json_format = json.dumps(
-        [
-            {
-                "owner": "guest@guest.com",
-                "public": False,
-                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-                "name": "EEGDataTable",
-                "description": "",
-                "family": "Visualization",
-                "fields": [{
-                    "name": "EEGData",
-                    "type": "EEGDataList",
-                    "card": "1-1",
-                    "attrs": "input"
-                }]
-            },
-            {
-                "owner": "guest@guest.com",
-                "public": False,
-                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-                "name": "FeatureLabelingBlock",
-                "description": "",
-                "family": "FeatureExtraction",
-                "fields": [
-                    {
-                        "name": "Markers",
-                        "type": "EEGMarker[]",
-                        "card": "*-*",
-                        "attrs": "input"
-                    },
-                    {
-                        "name": "FeatureVectors",
-                        "type": "List<FeatureVector>",
-                        "card": "1-1",
-                        "attrs": "input"
-                    },
-                    {
-                        "name": "FeatureVectors",
-                        "type": "List<FeatureVector>",
-                        "card": "*-*",
-                        "attrs": "output"
-                    }
-                ]
-            },
-            {
-                "owner": "guest@guest.com",
-                "public": False,
-                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-                "name": "FilterBlock",
-                "description": "",
-                "family": "Preprocessing",
-                "fields": [
-                    {
-                        "defaultValue": "1",
-                        "name": "Lower cutoff frequency",
-                        "description": "",
-                        "type": "NUMBER",
-                        "attrs": "editable"
-                    },
-                    {
-                        "defaultValue": "30",
-                        "name": "High cutoff frequency",
-                        "description": "",
-                        "type": "NUMBER",
-                        "attrs": "editable"
-                    },
-                    {
-                        "name": "EEGData",
-                        "type": "EEGDataList",
-                        "card": "1-1",
-                        "attrs": "input"
-                    },
-                    {
-                        "name": "EEGData",
-                        "type": "EEGDataList",
-                        "card": "*-*",
-                        "attrs": "output"
-                    }
-                ]
-            }
-        ]
-    )
+    # json_format = json.dumps(
+    #     [
+    #         {
+    #             "owner": "guest@guest.com",
+    #             "public": False,
+    #             "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+    #             "name": "EEGDataTable",
+    #             "description": "",
+    #             "family": "Visualization",
+    #             "fields": [{
+    #                 "name": "EEGData",
+    #                 "type": "EEGDataList",
+    #                 "card": "1-1",
+    #                 "attrs": "input"
+    #             }]
+    #         },
+    #         {
+    #             "owner": "guest@guest.com",
+    #             "public": False,
+    #             "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+    #             "name": "FeatureLabelingBlock",
+    #             "description": "",
+    #             "family": "FeatureExtraction",
+    #             "fields": [
+    #                 {
+    #                     "name": "Markers",
+    #                     "type": "EEGMarker[]",
+    #                     "card": "*-*",
+    #                     "attrs": "input"
+    #                 },
+    #                 {
+    #                     "name": "FeatureVectors",
+    #                     "type": "List<FeatureVector>",
+    #                     "card": "1-1",
+    #                     "attrs": "input"
+    #                 },
+    #                 {
+    #                     "name": "FeatureVectors",
+    #                     "type": "List<FeatureVector>",
+    #                     "card": "*-*",
+    #                     "attrs": "output"
+    #                 }
+    #             ]
+    #         },
+    #         {
+    #             "owner": "guest@guest.com",
+    #             "public": False,
+    #             "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+    #             "name": "FilterBlock",
+    #             "description": "",
+    #             "family": "Preprocessing",
+    #             "fields": [
+    #                 {
+    #                     "defaultValue": "1",
+    #                     "name": "Lower cutoff frequency",
+    #                     "description": "",
+    #                     "type": "NUMBER",
+    #                     "attrs": "editable"
+    #                 },
+    #                 {
+    #                     "defaultValue": "30",
+    #                     "name": "High cutoff frequency",
+    #                     "description": "",
+    #                     "type": "NUMBER",
+    #                     "attrs": "editable"
+    #                 },
+    #                 {
+    #                     "name": "EEGData",
+    #                     "type": "EEGDataList",
+    #                     "card": "1-1",
+    #                     "attrs": "input"
+    #                 },
+    #                 {
+    #                     "name": "EEGData",
+    #                     "type": "EEGDataList",
+    #                     "card": "*-*",
+    #                     "attrs": "output"
+    #                 }
+    #             ]
+    #         }
+    #     ]
+    # )
+    json_format = json.dumps(a)
     return json_format
 
 
