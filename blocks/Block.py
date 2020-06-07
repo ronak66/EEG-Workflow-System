@@ -1,7 +1,7 @@
-class Block:
+class Block(object):
 
-    family = ""
-    name = ""
+    family = "Default Family"
+    name = "Default Name"
 
     def __init__(self):
         pass

@@ -1,4 +1,6 @@
+import os
 import json
+import importlib
 from flask import Response, make_response, jsonify
 
 from app.user.auth import Auth
@@ -82,6 +84,22 @@ def jar_upload(data):
 
 @Auth.auth_required
 def tree_initialization():
+    print("-"*90)
+    modules = [name for name in os.listdir('blocks') if os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
+    dic = {}
+    for module in modules:
+        # spec = importlib.util.spec_from_file_location(module,'blocks/{}/__init__.py'.format(module))
+        # foo = importlib.util.module_from_spec(spec)
+        # spec.loader.exec_module(foo)
+        # dic[module] = foo.d
+        mapping = importlib.import_module('blocks.{}'.format(module))
+        dic[module] = mapping.string_classobject_mapping
+    print(dic)
+    dic['test1']['Addition'].input_params(1,2)
+    print(vars(dic['test1']['Addition']))
+    print("-"*90)
+
+
     # json_format = json.dumps(
     #     [
     #         {
@@ -170,6 +188,7 @@ def tree_initialization():
 
 @Auth.auth_required
 def schedule_new_job(data):
+    print(data)
     return str(37)
 
 
