@@ -95,8 +95,8 @@ def tree_initialization():
         mapping = importlib.import_module('blocks.{}'.format(module))
         dic[module] = mapping.string_classobject_mapping
     print(dic)
-    dic['test1']['Addition'].input_params(1,2)
-    print(vars(dic['test1']['Addition']))
+    # dic['test1']['Addition'].input_params(1,2)
+    print(vars(dic['test1']['Addition'])['output'].__class__.__name__)
     print("-"*90)
 
 
