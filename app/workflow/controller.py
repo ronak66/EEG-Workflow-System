@@ -100,39 +100,34 @@ def tree_initialization():
                 "name": key,
                 "description": "",
                 "family": value.family,
-                "fields": []       
+                "fields": generate_attribute_list(vars(value))       
             }
-            attributes = vars(value)
-            for _, attribute in attributes.items():
-                attribute_details = {
-                    "name": attribute.name,
-                    "type": attribute.parameter_type,
-                }
-                if(attribute.__class__.__name__ == 'BlockInput'):
-                    attribute_details{
-                        "card": "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
-                        "attrs": "input"
-                    }
-                elif(attribute.__class__.__name__ == 'BlockOutput'):
-                    attribute_details{
-                        "card": "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
-                        "attrs": "output"
-                    }
-                elif(attribute.__class__.__name__ == 'BlockParameter'):
-                    attribute_details = {
-                        "defaultValue": attribute.value
-                        "description": ""
-                        "attrs": "editable"
-                    }
-
-                block_details['fields'].append(attribute_details)
-
             block_list.append(block_details)
 
     print(block_list)
-    json_format = json.dumps(a)
+    # json_format = json.dumps(a)
     return json.dumps(block_list)
 
+
+def generate_attribute_list(attributes):
+    attribute_list = []
+    for _, attribute in attributes.items():
+        attribute_details = {
+            "name": attribute.name,
+            "type": attribute.attribute_type,
+        }
+        if(attribute.__class__.__name__ == 'BlockInput'):
+            attribute_details["card"] = "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
+            attribute_details["attrs"] = "input"
+        elif(attribute.__class__.__name__ == 'BlockOutput'):
+            attribute_details["card"] = "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
+            attribute_details["attrs"] = "output"
+        elif(attribute.__class__.__name__ == 'BlockParameter'):
+            attribute_details["defaultValue"] = str(attribute.value)
+            attribute_details["description"] = ""
+            attribute_details["attrs"] = "editable"
+        attribute_list.append(attribute_details)
+    return attribute_list    
 
 @Auth.auth_required
 def schedule_new_job(data):

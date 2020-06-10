@@ -11,14 +11,14 @@ class Constant(Block):
     def __init__(self):
         self.num = BlockParameter(
             name='constant value',
-            parameter_type='int',
+            attribute_type='int',
             defaultvalue=10
         )
         self.output = BlockOutput(
             name='output',
             min_cardinality=1,
             max_cardinality=1,
-            parameter_type='int'
+            attribute_type='int'
         )
 
     def input_params(self,const_value):

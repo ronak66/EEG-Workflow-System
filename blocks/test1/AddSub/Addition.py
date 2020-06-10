@@ -13,19 +13,19 @@ class Addition(Block):
             name='num1',
             min_cardinality=1,
             max_cardinality=1,
-            parameter_type='int'
+            attribute_type='int'
         )
         self.num2 = BlockInput(
             name='num2',
             min_cardinality=1,
             max_cardinality=1,
-            parameter_type='int'
+            attribute_type='int'
         )
         self.output = BlockOutput(
             name='output',
             min_cardinality=1,
             max_cardinality=1,
-            parameter_type='int'
+            attribute_type='int'
         )
         
 

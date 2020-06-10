@@ -1,14 +1,14 @@
 class BlockOutput:
 
-    def __init__(self, name:str, parameter_type:str, min_cardinality:int, max_cardinality:int):
+    def __init__(self, name:str, attribute_type:str, min_cardinality:int, max_cardinality:int):
         if not (isinstance(name,str) and isinstance(min_cardinality,int) and isinstance(max_cardinality,int) \
-            and isinstance(parameter_type,str)):
+            and isinstance(attribute_type,str)):
             raise TypeError("Incorrect parameter type")
         self.name = name
         self.value = None
         self.max_cardinality = max_cardinality
         self.min_cardinality = min_cardinality
-        self.parameter_type = parameter_type
+        self.attribute_type = attribute_type
 
     def set_value(self,value):
         self.value = value
