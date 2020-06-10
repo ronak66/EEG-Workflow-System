@@ -86,104 +86,52 @@ def jar_upload(data):
 def tree_initialization():
     print("-"*90)
     modules = [name for name in os.listdir('blocks') if os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
-    dic = {}
+    block_list = []
+    # module_blocks_mapping = {}
     for module in modules:
-        # spec = importlib.util.spec_from_file_location(module,'blocks/{}/__init__.py'.format(module))
-        # foo = importlib.util.module_from_spec(spec)
-        # spec.loader.exec_module(foo)
-        # dic[module] = foo.d
         mapping = importlib.import_module('blocks.{}'.format(module))
-        dic[module] = mapping.string_classobject_mapping
-    print(dic)
-    # dic['test1']['Addition'].input_params(1,2)
-    print(vars(dic['test1']['Addition'])['output'].__class__.__name__)
-    print("-"*90)
+        # module_blocks_mapping[module] = mapping.string_classobject_mapping
+        mp = mapping.string_classobject_mapping
+        for key, value in mp.items():
+            block_details = {
+                "owner": "guest@guest.com",
+                "public": False,
+                "module": "{}.jar:{}".format(module,module),
+                "name": key,
+                "description": "",
+                "family": value.family,
+                "fields": []       
+            }
+            attributes = vars(value)
+            for _, attribute in attributes.items():
+                attribute_details = {
+                    "name": attribute.name,
+                    "type": attribute.parameter_type,
+                }
+                if(attribute.__class__.__name__ == 'BlockInput'):
+                    attribute_details{
+                        "card": "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
+                        "attrs": "input"
+                    }
+                elif(attribute.__class__.__name__ == 'BlockOutput'):
+                    attribute_details{
+                        "card": "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
+                        "attrs": "output"
+                    }
+                elif(attribute.__class__.__name__ == 'BlockParameter'):
+                    attribute_details = {
+                        "defaultValue": attribute.value
+                        "description": ""
+                        "attrs": "editable"
+                    }
 
+                block_details['fields'].append(attribute_details)
 
-    # json_format = json.dumps(
-    #     [
-    #         {
-    #             "owner": "guest@guest.com",
-    #             "public": False,
-    #             "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-    #             "name": "EEGDataTable",
-    #             "description": "",
-    #             "family": "Visualization",
-    #             "fields": [{
-    #                 "name": "EEGData",
-    #                 "type": "EEGDataList",
-    #                 "card": "1-1",
-    #                 "attrs": "input"
-    #             }]
-    #         },
-    #         {
-    #             "owner": "guest@guest.com",
-    #             "public": False,
-    #             "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-    #             "name": "FeatureLabelingBlock",
-    #             "description": "",
-    #             "family": "FeatureExtraction",
-    #             "fields": [
-    #                 {
-    #                     "name": "Markers",
-    #                     "type": "EEGMarker[]",
-    #                     "card": "*-*",
-    #                     "attrs": "input"
-    #                 },
-    #                 {
-    #                     "name": "FeatureVectors",
-    #                     "type": "List<FeatureVector>",
-    #                     "card": "1-1",
-    #                     "attrs": "input"
-    #                 },
-    #                 {
-    #                     "name": "FeatureVectors",
-    #                     "type": "List<FeatureVector>",
-    #                     "card": "*-*",
-    #                     "attrs": "output"
-    #                 }
-    #             ]
-    #         },
-    #         {
-    #             "owner": "guest@guest.com",
-    #             "public": False,
-    #             "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-    #             "name": "FilterBlock",
-    #             "description": "",
-    #             "family": "Preprocessing",
-    #             "fields": [
-    #                 {
-    #                     "defaultValue": "1",
-    #                     "name": "Lower cutoff frequency",
-    #                     "description": "",
-    #                     "type": "NUMBER",
-    #                     "attrs": "editable"
-    #                 },
-    #                 {
-    #                     "defaultValue": "30",
-    #                     "name": "High cutoff frequency",
-    #                     "description": "",
-    #                     "type": "NUMBER",
-    #                     "attrs": "editable"
-    #                 },
-    #                 {
-    #                     "name": "EEGData",
-    #                     "type": "EEGDataList",
-    #                     "card": "1-1",
-    #                     "attrs": "input"
-    #                 },
-    #                 {
-    #                     "name": "EEGData",
-    #                     "type": "EEGDataList",
-    #                     "card": "*-*",
-    #                     "attrs": "output"
-    #                 }
-    #             ]
-    #         }
-    #     ]
-    # )
+            block_list.append(block_details)
+
+    print(block_list)
     json_format = json.dumps(a)
-    return json_format
+    return json.dumps(block_list)
 
 
 @Auth.auth_required

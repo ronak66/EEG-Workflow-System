@@ -1,10 +1,10 @@
 class BlockParameter:
 
-    def __init__(self, name:str, parameter_type:str):
+    def __init__(self, name:str, parameter_type:str, defaultvalue=None):
         if not (isinstance(name,str) and isinstance(parameter_type,str)):
             raise TypeError("Incorrect parameter type")
         self.name = name
-        self.value = None
+        self.value = defaultvalue
         self.parameter_type = parameter_type
 
     def set_value(self,value):
