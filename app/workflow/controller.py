@@ -1,133 +1,117 @@
 import os
 import json
+import zipfile
 import importlib
 from flask import Response, make_response, jsonify
 
 from app.user.auth import Auth
-from app.workflow.dummy import a
+from app.workflow.dummy import a, b
 
 @Auth.auth_required
-def jar_upload(data):
-    json_format = json.dumps(
-        [
-            {
-                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-                "name": "EEGDataTable",
-                "description": "",
-                "family": "Visualization",
-                "fields": [
-                    {
-                        "name": "EEGData",
-                        "type": "EEGDataList",
-                        "card": "1-1",
-                        "attrs": "input"
-                    }
-                ]
-            },
-            {
-                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-                "name": "WaveletTransformBlock",
-                "description": "",
-                "family": "FeatureExtraction",
-                "fields": [
-                    {
-                        "name": "EEGData",
-                        "type": "EEGDataList",
-                        "card": "1-1",
-                        "attrs": "input"
-                    },
-                    {
-                        "name": "FeatureVectors",
-                        "type": "List<FeatureVector>",
-                        "card": "*-*",
-                        "attrs": "output"
-                    }
-                ]
-            },
-            {
-                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
-                "name": "FilterBlock",
-                "description": "",
-                "family": "Preprocessing",
-                "fields": [
-                    {
-                        "defaultValue": "1",
-                        "name": "Lower cutoff frequency",
-                        "description": "",
-                        "type": "NUMBER",
-                        "attrs": "editable"
-                    },
-                    {
-                        "defaultValue": "30",
-                        "name": "High cutoff frequency",
-                        "description": "",
-                        "type": "NUMBER",
-                        "attrs": "editable"
-                    },
-                    {
-                        "name": "EEGData",
-                        "type": "EEGDataList",
-                        "card": "1-1",
-                        "attrs": "input"
-                    },
-                    {
-                        "name": "EEGData",
-                        "type": "EEGDataList",
-                        "card": "*-*",
-                        "attrs": "output"
-                    }
-                ]
-            }
-        ]
-    )
-    return json_format
+def jar_upload(data,files):
+    try:
+        print('-'*80,'Jar Upload',sep='\n')
+        print(files['file'].filename)
+        archive = zipfile.ZipFile(files['file'])
+        old_modules = [name for name in os.listdir('blocks') if os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
+        new_modules = {item.split('/')[0] for item in archive.namelist()}
+        for new_module in new_modules:
+            if new_module in old_modules:
+                return Response(
+                    mimetype="application/json",
+                    response=json.dumps(
+                        {'error': 'Module name \'{}\' in {} already exsists, pls change the name'.\
+                            format(new_module,files['file'].filename)}
+                    ),
+                    status=403
+                )
+        archive.extractall('blocks/')
+        # for module in modules:
+        #     for file in archive.namelist():
+        #         if(file.startswith(module)):
+        #             archive.extract(file, 'blocks/')
+        #     os.rename('blocks/{}'.format(module),'blocks/{}:{}'.format(files['file'].filename,module))
+        block_list = []
+        
+        json_format = json.dumps(b)
+        return json_format
+
+    except Exception as e:
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': e}),
+            status=400
+        )
+
 
 @Auth.auth_required
 def tree_initialization():
-    print("-"*90)
-    modules = [name for name in os.listdir('blocks') if os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
-    block_list = []
-    # module_blocks_mapping = {}
-    for module in modules:
-        mapping = importlib.import_module('blocks.{}'.format(module))
-        # module_blocks_mapping[module] = mapping.string_classobject_mapping
-        mp = mapping.string_classobject_mapping
-        for key, value in mp.items():
-            block_details = {
-                "owner": "guest@guest.com",
-                "public": False,
-                "module": "{}.jar:{}".format(module,module),
-                "name": key,
-                "description": "",
-                "family": value.family,
-                "fields": generate_attribute_list(vars(value))       
-            }
-            block_list.append(block_details)
+    try:
+        print('-'*80,'Tree Initialisation',sep='\n')
+        modules = [name for name in os.listdir('blocks') if \
+            os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
+        block_list = []
+        # module_blocks_mapping = {}
+        for module in modules:
+            mapping = importlib.import_module('blocks.{}'.format(module))
+            # module_blocks_mapping[module] = mapping.string_classobject_mapping
+            try:
+                mp = mapping.string_classobject_mapping
+            except:
+                continue
+            for key, value in mp.items():
+                block_details = {
+                    "owner": "guest@guest.com",
+                    "public": False,
+                    "module": "{}.zip:{}".format(module,module),
+                    # "module": module,
+                    "name": key,
+                    "description": "",
+                    "family": value.family,
+                    "fields": generate_attribute_list(vars(value))       
+                }
+                block_list.append(block_details)
 
-    print(block_list)
-    # json_format = json.dumps(a)
-    return json.dumps(block_list)
+        print(block_list)
+        # json_format = json.dumps(a)
+        # return json_format
+        return json.dumps(block_list)
+
+    except Exception as e:
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': e}),
+            status=400
+        )
 
 
 def generate_attribute_list(attributes):
-    attribute_list = []
-    for _, attribute in attributes.items():
-        attribute_details = {
-            "name": attribute.name,
-            "type": attribute.attribute_type,
-        }
-        if(attribute.__class__.__name__ == 'BlockInput'):
-            attribute_details["card"] = "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
-            attribute_details["attrs"] = "input"
-        elif(attribute.__class__.__name__ == 'BlockOutput'):
-            attribute_details["card"] = "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
-            attribute_details["attrs"] = "output"
-        elif(attribute.__class__.__name__ == 'BlockParameter'):
-            attribute_details["defaultValue"] = str(attribute.value)
-            attribute_details["description"] = ""
-            attribute_details["attrs"] = "editable"
-        attribute_list.append(attribute_details)
-    return attribute_list    
+    try:
+        attribute_list = []
+        for _, attribute in attributes.items():
+            attribute_details = {
+                "name": attribute.name,
+                "type": attribute.attribute_type,
+            }
+            if(attribute.__class__.__name__ == 'BlockInput'):
+                attribute_details["card"] = "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
+                attribute_details["attrs"] = "input"
+            elif(attribute.__class__.__name__ == 'BlockOutput'):
+                attribute_details["card"] = "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
+                attribute_details["attrs"] = "output"
+            elif(attribute.__class__.__name__ == 'BlockParameter'):
+                attribute_details["defaultValue"] = str(attribute.value)
+                attribute_details["description"] = ""
+                attribute_details["attrs"] = "editable"
+            attribute_list.append(attribute_details)
+        return attribute_list 
+
+    except Exception as e:
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': e}),
+            status=400
+        )
 
 @Auth.auth_required
 def schedule_new_job(data):

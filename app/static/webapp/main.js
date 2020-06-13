@@ -234,7 +234,10 @@ var contex_menu = {
                 error: function (e) {
                     alertify.notify('Error Registering blocks', 'error', 3);
                     if(e.status===403){
-                        alertify.notify(e.responseText, 'error', 10);
+                        alertify.notify(e.responseText, 'error', 15);
+                    }
+                    if(e.status===400){
+                        alert("Error!"+e.responseText);
                     }
                 }
             });
@@ -847,7 +850,7 @@ function login(){
             if(e.status===403)
                 alertify.notify("Unauthorized, Try again", 'error', 3);
             else
-                alertify.notify("Some error occurred", 'error', 3);
+                alert("Error!"+e.responseText);
 
 
         }

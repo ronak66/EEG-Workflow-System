@@ -40,3 +40,7 @@ class Job(db.Model):
         return "id: {}, user_id: {}, workflow: {}, created_on: {}".format(self.id, \
             self.user_id, self.workflow, self.created_on)
     
+# class Modules(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     module_name = db.Column(db.String)    
+#     module_file = db.Column(db.String)

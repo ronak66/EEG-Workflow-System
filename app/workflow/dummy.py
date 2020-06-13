@@ -504,3 +504,75 @@ a = [
         ]
     }
 ]
+
+
+b = [
+    {
+        "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+        "name": "EEGDataTable",
+        "description": "",
+        "family": "Visualization",
+        "fields": [
+            {
+                "name": "EEGData",
+                "type": "EEGDataList",
+                "card": "1-1",
+                "attrs": "input"
+            }
+        ]
+    },
+    {
+        "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+        "name": "WaveletTransformBlock",
+        "description": "",
+        "family": "FeatureExtraction",
+        "fields": [
+            {
+                "name": "EEGData",
+                "type": "EEGDataList",
+                "card": "1-1",
+                "attrs": "input"
+            },
+            {
+                "name": "FeatureVectors",
+                "type": "List<FeatureVector>",
+                "card": "*-*",
+                "attrs": "output"
+            }
+        ]
+    },
+    {
+        "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+        "name": "FilterBlock",
+        "description": "",
+        "family": "Preprocessing",
+        "fields": [
+            {
+                "defaultValue": "1",
+                "name": "Lower cutoff frequency",
+                "description": "",
+                "type": "NUMBER",
+                "attrs": "editable"
+            },
+            {
+                "defaultValue": "30",
+                "name": "High cutoff frequency",
+                "description": "",
+                "type": "NUMBER",
+                "attrs": "editable"
+            },
+            {
+                "name": "EEGData",
+                "type": "EEGDataList",
+                "card": "1-1",
+                "attrs": "input"
+            },
+            {
+                "name": "EEGData",
+                "type": "EEGDataList",
+                "card": "*-*",
+                "attrs": "output"
+            }
+        ]
+    }
+]
