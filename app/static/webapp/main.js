@@ -219,11 +219,13 @@ var contex_menu = {
                     request.setRequestHeader("token",  $.cookie("token"));
                 },
                 success: function (data) {
-                    var newBlocks = JSON.parse(data);
-                    blocks.register(newBlocks);
+                    // console.log(data)
+                    // var num_of_new_blocks = JSON.parse(data);
+                    // blocks.register(newBlocks);
                     initializeTree();
-                    if(newBlocks.length!=0)
-                        alertify.notify(newBlocks.length + ' blocks registered', 'success', 5);
+                    // if(newBlocks.length!=0)
+                    if(data.new_block_length!=0)
+                        alertify.notify(data.new_blocks_length + ' blocks registered', 'success', 5);
                     else{
                         alertify.notify('No blocks registered', 'error', 5);
                     }
@@ -405,7 +407,8 @@ function initializeTree() {
         },
         timeout: 600000,
         success: function (data) {
-            var blockDefinitions = JSON.parse(data)
+            // var blockDefinitions = JSON.parse(data)
+            var blockDefinitions = data
             blocks.register(blockDefinitions);
 
             var library=[];

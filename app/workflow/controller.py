@@ -2,9 +2,10 @@ import os
 import json
 import zipfile
 import importlib
-from flask import Response, make_response, jsonify
+from flask import Response, make_response, jsonify, g
 
 from app.user.auth import Auth
+from app.workflow.model import Job
 from app.workflow.dummy import a, b
 
 @Auth.auth_required
@@ -26,20 +27,34 @@ def jar_upload(data,files):
                     status=403
                 )
         archive.extractall('blocks/')
+        num_of_new_blocks = 0
+        for new_module in new_modules:
+            mapping = importlib.import_module('blocks.{}'.format(new_module))
+            try:
+                mp = mapping.string_classobject_mapping
+            except:
+                continue
+            num_of_new_blocks += len(mp.keys())
+
         # for module in modules:
         #     for file in archive.namelist():
         #         if(file.startswith(module)):
         #             archive.extract(file, 'blocks/')
         #     os.rename('blocks/{}'.format(module),'blocks/{}:{}'.format(files['file'].filename,module))
-        block_list = []
         
-        json_format = json.dumps(b)
-        return json_format
+        # json_format = json.dumps(b)
+        # return json_format
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'new_blocks_length': num_of_new_blocks}),
+            status=200
+        )
+        # return str(num_of_new_blocks)
 
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
@@ -72,15 +87,18 @@ def tree_initialization():
                 }
                 block_list.append(block_details)
 
-        print(block_list)
         # json_format = json.dumps(a)
         # return json_format
-        return json.dumps(block_list)
+        return Response(
+            mimetype="application/json",
+            response=json.dumps(block_list),
+            status=200
+        )
 
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
@@ -109,41 +127,58 @@ def generate_attribute_list(attributes):
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
 @Auth.auth_required
 def schedule_new_job(data):
-    print(data)
-    return str(37)
+    new_job = Job(
+        user_id = g.user['id'],
+        workflow = data     
+    )
+    new_job.save()
+    return str(new_job.id)
 
 
 @Auth.auth_required
 def get_all_scheduled_jobs():
-    json_format = json.dumps(
-        [
-            {
-                "startTime": "2/6/20 1:36 PM",
-                "id": 36,
-                "endTime": "2/6/20 1:36 PM",
-                "status": "COMPLETED"
-            },
-            {
-                "startTime": "2/6/20 1:35 PM",
-                "id": 35,
-                "endTime": "",
-                "status": "FAILED"
-            },
-            {
-                "startTime": "2/6/20 1:32 PM",
-                "id": 34,
-                "endTime": "",
-                "status": "FAILED"
-            }
-        ]
-    )
-    return json_format
+    user_id = g.user['id']
+    jobs = Job.get_jobs_via_user_id(user_id)
+    job_list = []
+    for job in jobs:
+        job_details = {
+            "startTime": str(job.start_time),
+            "id": job.id,
+            "endTime": str(job.end_time),
+            "status": job.status
+        }
+        job_list.append(job_details)
+    print(job_list)    
+
+    # json_format = json.dumps(
+    #     [
+    #         {
+    #             "startTime": "2/6/20 1:36 PM",
+    #             "id": 36,
+    #             "endTime": "2/6/20 1:36 PM",
+    #             "status": "COMPLETED"
+    #         },
+    #         {
+    #             "startTime": "2/6/20 1:35 PM",
+    #             "id": 35,
+    #             "endTime": "",
+    #             "status": "FAILED"
+    #         },
+    #         {
+    #             "startTime": "2/6/20 1:32 PM",
+    #             "id": 34,
+    #             "endTime": "",
+    #             "status": "FAILED"
+    #         }
+    #     ]
+    # )
+    return json.dumps(job_list)
 
 @Auth.auth_required
 def get_job_details(data):
@@ -199,7 +234,7 @@ def get_job_details(data):
                         ],
                         "connector2": [
                             "EEGData",
-                            "input"
+                            "input" 
                         ],
                         "block1": 1,
                         "block2": 2,

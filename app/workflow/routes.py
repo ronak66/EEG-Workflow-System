@@ -15,7 +15,7 @@ def JAR_upload():
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
@@ -27,7 +27,7 @@ def initialize_tree():
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
@@ -36,14 +36,11 @@ def schedule():
     if(request.method == "POST"):
         try:
             data = request.form
-            print("-"*80)
-            print(data)
-            print("-"*80)
             return schedule_new_job(data)
         except Exception as e:
             return Response(
                 mimetype="application/json",
-                response=json.dumps({'error': e}),
+                response=json.dumps({'error': str(e)}),
                 status=400
             )
     else:
@@ -52,7 +49,7 @@ def schedule():
         except Exception as e:
             return Response(
                 mimetype="application/json",
-                response=json.dumps({'error': e}),
+                response=json.dumps({'error': str(e)}),
                 status=400
             )
 
@@ -65,7 +62,7 @@ def job_workflow():
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 

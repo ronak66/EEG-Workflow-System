@@ -13,7 +13,7 @@ def login_user():
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )        
 
@@ -27,7 +27,7 @@ def user_register():
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
@@ -39,6 +39,6 @@ def reset_password():
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )

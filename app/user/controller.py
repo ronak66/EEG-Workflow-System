@@ -39,7 +39,7 @@ def user_login(data):
         print("Error: {}".format(e))
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
@@ -67,7 +67,7 @@ def create_new_user(data):
     except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': e}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
 
@@ -97,6 +97,6 @@ def change_password(data):
     except Exception as e:
         return Response(
                 mimetype="application/json",
-                response=json.dumps({'error': e}),
+                response=json.dumps({'error': str(e)}),
                 status=400
             )
