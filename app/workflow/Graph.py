@@ -1,3 +1,5 @@
+from queue import Queue
+
 class Graph:
 
     def __init__(self,workflow,):
@@ -60,3 +62,34 @@ class Graph:
                 self.transpose_adjacency_list[input_block].append(output_block)
             else:
                 self.transpose_adjacency_list[input_block] = [output_block]
+
+    def bfs(self):
+        self.create_adjacency_list()
+        self.create_block_id_mapping()
+        all_block_ids = self.mp_id_block.keys()
+        staring_blocks = [i for i in all_block_ids if i not in self.transpose_adjacency_list.keys()]
+
+        visited = {}
+        for block_id in all_block_ids:
+            visited[block_id] = 0
+
+        queue = Queue()
+        for block_id in staring_blocks:
+            visited[block_id] = 1
+            queue.put(block_id)
+
+        self.final_queue = Queue()
+
+        while(queue.qsize()):
+            block_id = queue.get()
+            self.final_queue.put(block_id)
+            if(block_id in self.adjacency_list.keys()):
+                for ngb_block_id in self.adjacency_list[block_id]:
+                    all_input_ready_flag = 1
+                    for input_id in self.transpose_adjacency_list[ngb_block_id['id']]:
+                        if(visited[input_id]==0):
+                            all_input_ready_flag = 0
+                            break
+                    if(all_input_ready_flag and visited[ngb_block_id['id']]==0):
+                        queue.put(ngb_block_id['id'])
+                        visited[ngb_block_id['id']] = 1
