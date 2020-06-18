@@ -6,6 +6,7 @@ from flask import Response, make_response, jsonify, g
 
 from app.user.auth import Auth
 from app.workflow.model import Job
+from app.workflow.Graph import Graph
 from app.workflow.dummy import a, b
 
 @Auth.auth_required
@@ -133,12 +134,26 @@ def generate_attribute_list(attributes):
 
 @Auth.auth_required
 def schedule_new_job(data):
+    print('-'*80,'Scheduling Job',sep='\n')
+    modules = [name for name in os.listdir('blocks') if \
+        os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
+    module_blocks_mapping = {}
+    for module in modules:
+        mapping = importlib.import_module('blocks.{}'.format(module))
+        module_blocks_mapping[module] = mapping.string_classobject_mapping
+
+    execute_scheduled_job(data,module_blocks_mapping)
+
     new_job = Job(
         user_id = g.user['id'],
         workflow = data     
     )
     new_job.save()
     return str(new_job.id)
+
+def execute_scheduled_job(workflow,module_blocks_mapping):
+    graph = Graph(workflow,module_blocks_mapping)
+    pass
 
 
 @Auth.auth_required

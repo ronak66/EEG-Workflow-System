@@ -2,8 +2,9 @@ from queue import Queue
 
 class Graph:
 
-    def __init__(self,workflow,):
+    def __init__(self,workflow,module_blocks_mapping):
         self.workflow = workflow
+        self.module_blocks_mapping = module_blocks_mapping
     
     def create_block_id_mapping(self):
         self.mp_id_block = {}
@@ -93,3 +94,9 @@ class Graph:
                     if(all_input_ready_flag and visited[ngb_block_id['id']]==0):
                         queue.put(ngb_block_id['id'])
                         visited[ngb_block_id['id']] = 1
+
+    # def execute_workflow():
+    #     for block_id in list(self.final_queue.queue):
+    #         if(block_id not in self.transpose_adjacency_list.keys()):
+    #             try:
+
