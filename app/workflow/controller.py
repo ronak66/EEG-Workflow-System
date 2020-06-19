@@ -119,7 +119,7 @@ def generate_attribute_list(attributes):
                 attribute_details["card"] = "{}-{}".format(attribute.min_cardinality,attribute.max_cardinality)
                 attribute_details["attrs"] = "output"
             elif(attribute.__class__.__name__ == 'BlockParameter'):
-                attribute_details["defaultValue"] = str(attribute.value)
+                attribute_details["defaultValue"] = attribute.value
                 attribute_details["description"] = ""
                 attribute_details["attrs"] = "editable"
             attribute_list.append(attribute_details)

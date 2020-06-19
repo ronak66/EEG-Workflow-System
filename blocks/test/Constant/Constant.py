@@ -11,8 +11,8 @@ class Constant(Block):
     def __init__(self):
         self.num = BlockParameter(
             name='constant value',
-            attribute_type='FILE[]',
-            defaultvalue=''
+            attribute_type='int',
+            defaultvalue=10
         )
         self.output = BlockOutput(
             name='output',
@@ -21,8 +21,8 @@ class Constant(Block):
             attribute_type='int'
         )
 
-    def input_params(self,const_value):
-        self.num.set_value(const_value)
+    def input_params(self,data):
+        self.num.set_value(data['constant value'])
 
     def execute(self):
         value = self.num.value

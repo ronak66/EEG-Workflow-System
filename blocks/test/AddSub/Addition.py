@@ -29,9 +29,9 @@ class Addition(Block):
         )
         
 
-    def input_params(self,num1,num2):
-        self.num1.set_value(num1)
-        self.num2.set_value(num2)
+    def input_params(self,data):
+        self.num1.set_value(int(data['num1']))
+        self.num2.set_value(int(data['num2']))
 
     def execute(self):
         value = self.num1.value + self.num2.value
