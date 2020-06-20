@@ -23,7 +23,7 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt()
 
 # Celery
-# celery worker -A app.client --loglevel=info
+# celery worker -A app.celery --loglevel=info
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 
 from app.home.routes import home
