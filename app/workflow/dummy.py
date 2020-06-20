@@ -1,3 +1,4 @@
+import json
 a = [
     {
         "owner": "guest@guest.com",
@@ -576,3 +577,123 @@ b = [
         ]
     }
 ]
+
+c = json.dumps({
+        "workflow": {
+            "blocks": [
+                {
+                    "stdout": "13:47:39.626 [main] DEBUG org.reflections.Reflections - going to scan these urls:\njar:file:/home/ronak/.workflow_designer_files/uploadedFiles/basil_bci-1.2.0-jar-with-dependencies.jar!/\n13:47:39.806 [main] INFO  org.reflections.Reflections - Reflections took 176 ms to scan 1 urls, producing 12 keys and 63 values \n",
+                    "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                    "values": {"EEG File": ["Shared/LED_28_06_2012_104.eeg"]},
+                    "x": -461.5000061035156,
+                    "y": -163,
+                    "id": 1,
+                    "completed": True,
+                    "type": "OffLineDataProvider",
+                    "error": False,
+                    "stderr": ""
+                },
+                {
+                    "stdout": "13:47:44.915 [main] DEBUG org.reflections.Reflections - going to scan these urls:\njar:file:/home/ronak/.workflow_designer_files/uploadedFiles/basil_bci-1.2.0-jar-with-dependencies.jar!/\n13:47:45.080 [main] INFO  org.reflections.Reflections - Reflections took 160 ms to scan 1 urls, producing 12 keys and 63 values \n",
+                    "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                    "values": {
+                        "Lower cutoff frequency": "1",
+                        "High cutoff frequency": "30"
+                    },
+                    "x": -168.5000061035156,
+                    "y": -157,
+                    "id": 2,
+                    "completed": True,
+                    "type": "FilterBlock",
+                    "error": False,
+                    "stderr": ""
+                },
+                {
+                    "stdout": "13:47:47.341 [main] DEBUG org.reflections.Reflections - going to scan these urls:\njar:file:/home/ronak/.workflow_designer_files/uploadedFiles/basil_bci-1.2.0-jar-with-dependencies.jar!/\n13:47:47.511 [main] INFO  org.reflections.Reflections - Reflections took 165 ms to scan 1 urls, producing 12 keys and 63 values \n",
+                    "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                    "values": {"channels": [""]},
+                    "x": 50.4999938964844,
+                    "y": -140,
+                    "id": 5,
+                    "completed": True,
+                    "type": "ChannelSelection",
+                    "error": False,
+                    "stderr": ""
+                }
+            ],
+            "edges": [
+                {
+                    "connector1": [
+                        "EEGData",
+                        "output"
+                    ],
+                    "connector2": [
+                        "EEGData",
+                        "input" 
+                    ],
+                    "block1": 1,
+                    "block2": 2,
+                    "id": 1
+                },
+                {
+                    "connector1": [
+                        "EEGData",
+                        "output"
+                    ],
+                    "connector2": [
+                        "EEGData",
+                        "input"
+                    ],
+                    "block1": 2,
+                    "block2": 5,
+                    "id": 2
+                }
+            ]
+        },
+        "executionStatus": [
+            {
+                "stdout": "13:47:39.626 [main] DEBUG org.reflections.Reflections - going to scan these urls:\njar:file:/home/ronak/.workflow_designer_files/uploadedFiles/basil_bci-1.2.0-jar-with-dependencies.jar!/\n13:47:39.806 [main] INFO  org.reflections.Reflections - Reflections took 176 ms to scan 1 urls, producing 12 keys and 63 values \n",
+                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                "values": {"EEG File": ["Shared/LED_28_06_2012_104.eeg"]},
+                "x": -461.5000061035156,
+                "y": -163,
+                "id": 1,
+                "completed": True,
+                "type": "OffLineDataProvider",
+                "error": False,
+                "stderr": ""
+            },
+            {
+                "stdout": "13:47:44.915 [main] DEBUG org.reflections.Reflections - going to scan these urls:\njar:file:/home/ronak/.workflow_designer_files/uploadedFiles/basil_bci-1.2.0-jar-with-dependencies.jar!/\n13:47:45.080 [main] INFO  org.reflections.Reflections - Reflections took 160 ms to scan 1 urls, producing 12 keys and 63 values \n",
+                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                "values": {
+                    "Lower cutoff frequency": "1",
+                    "High cutoff frequency": "30"
+                },
+                "x": -168.5000061035156,
+                "y": -157,
+                "id": 2,
+                "completed": True,
+                "type": "FilterBlock",
+                "error": False,
+                "stderr": ""
+            },
+            {
+                "stdout": "13:47:47.341 [main] DEBUG org.reflections.Reflections - going to scan these urls:\njar:file:/home/ronak/.workflow_designer_files/uploadedFiles/basil_bci-1.2.0-jar-with-dependencies.jar!/\n13:47:47.511 [main] INFO  org.reflections.Reflections - Reflections took 165 ms to scan 1 urls, producing 12 keys and 63 values \n",
+                "module": "basil_bci-1.2.0-jar-with-dependencies.jar:cz.zcu.kiv.eeg.basil",
+                "values": {"channels": [""]},
+                "x": 50.4999938964844,
+                "y": -140,
+                "id": 5,
+                "completed": True,
+                "type": "ChannelSelection",
+                "error": False,
+                "stderr": ""
+            }
+        ],
+        "startTime": "2/6/20 1:47 PM",
+        "id": 37,
+        "endTime": "2/6/20 1:47 PM",
+        "status": "COMPLETED"
+    }
+)

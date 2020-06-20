@@ -1,7 +1,9 @@
 import os
 from flask import Flask
+from celery import Celery
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+
 
 from app.server_config import ServerConfig
 
@@ -19,6 +21,10 @@ $ export CONFIGURATION_FILE=./config/debug_environment.cfg
 # Database setup
 db = SQLAlchemy(app)
 bcrypt = Bcrypt()
+
+# Celery
+# celery worker -A app.client --loglevel=info
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 
 from app.home.routes import home
 app.register_blueprint(home)

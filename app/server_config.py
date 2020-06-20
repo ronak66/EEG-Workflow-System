@@ -13,6 +13,9 @@ class ServerConfig(object):
 
     STATIC_VERSION = "1"
 
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
 
 class SessionConfig(object):
     USERID = 'userid'

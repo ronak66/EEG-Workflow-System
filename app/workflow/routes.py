@@ -47,6 +47,7 @@ def schedule():
         try:
             return get_all_scheduled_jobs()
         except Exception as e:
+            print(e)
             return Response(
                 mimetype="application/json",
                 response=json.dumps({'error': str(e)}),

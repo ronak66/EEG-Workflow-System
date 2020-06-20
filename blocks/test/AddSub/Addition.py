@@ -1,3 +1,5 @@
+import time
+
 from blocks.Block import Block 
 from blocks.BlockInput import BlockInput
 from blocks.BlockParameter import BlockParameter
@@ -30,6 +32,7 @@ class Addition(Block):
         
 
     def input_params(self,data):
+        time.sleep(10)
         self.num1.set_value(int(data['num1']))
         self.num2.set_value(int(data['num2']))
 

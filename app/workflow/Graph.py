@@ -1,12 +1,16 @@
 import copy
 from queue import Queue
+from datetime import datetime
+
+from app.workflow.model import Job
 
 class Graph:
 
-    def __init__(self,workflow,module_blocks_mapping):
+    def __init__(self,workflow,module_blocks_mapping,job_id):
         self.workflow = workflow
         self.module_blocks_mapping = module_blocks_mapping
         self.block_id_output = {}
+        self.job_id = job_id
     
     def create_block_id_mapping(self):
         self.mp_id_block = {}
@@ -112,6 +116,7 @@ class Graph:
                     module_blocks[block_type].input_params(input_data)
                     module_blocks[block_type].execute()
                 except Exception as e:
+                    self.update_job_status(block_id,str(e),'FAILED')
                     return str(e)
             else:
                 try:
@@ -124,6 +129,7 @@ class Graph:
                     module_blocks[block_type].input_params(input_data)
                     module_blocks[block_type].execute()                    
                 except Exception as e:
+                    self.update_job_status(block_id,str(e),'FAILED')
                     return str(e)
 
 
@@ -133,6 +139,36 @@ class Graph:
                     output[attr.name] = attr.value
 
             self.block_id_output[block_id] = output
+
+            status = 'RUNNING'
+            length = len(list(self.final_queue.queue))
+            if(list(self.final_queue.queue)[length-1] == block_id):
+                status = 'COMPLETED'
+            self.update_job_status(block_id,output,status)
+            
+
+    def update_job_status(self,block_id,msg,status):
+        job = Job.query.get(self.job_id)
+        workflow = copy.deepcopy(job.workflow)
+        for block in workflow['executionStatus']:
+            if(block['id'] == block_id):
+                block['output'] = {
+                    'type': 'STRING',
+                    'value': str(msg)
+                }
+                block['completed'] = True
+                if(status == 'Failed'):
+                    block['error'] = True
+                    block['stderr'] = str(msg)
+                else:    
+                    block['error'] = False
+                    block['stderr'] = ""
+                break
+        job.status = status
+        if(status == 'COMPLETED'):
+            job.end_time = datetime.utcnow()
+        job.workflow = workflow
+        job.commit()
 
 
 # def lol():
