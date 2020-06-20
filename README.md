@@ -7,11 +7,16 @@ $ python3 -m pip install --user virtualenv
 $ python3 -m venv env
 $ source env/bin/activate
 ```
-2. Install all the required dependencies  
+2. Install Reddis server to run the workflow in the background  
+```
+$ pip3 install redis
+$ sudo apt-get install redis-server
+```
+3. Install all the required dependencies  
 ```
 $ pip3 install requirements.txt
 ```
-3. Run the system  
+4. Run the system  
 ```
 $ python3 server.py
 ```
