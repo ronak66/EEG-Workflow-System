@@ -9,7 +9,6 @@ $ source env/bin/activate
 ```
 2. Install Reddis server to run the workflow in the background  
 ```
-$ pip3 install redis
 $ sudo apt-get install redis-server
 ```
 3. Install all the required dependencies  

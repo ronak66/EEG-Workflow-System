@@ -317,12 +317,15 @@ var contex_menu = {
                     request.setRequestHeader("token",  $.cookie("token"));
                 },
                 success: function (data) {
-                    tracking=data;
-                    alertify.notify('Job ID '+data+' scheduled !', 'success', 3);
+                    tracking=data.job_id;
+                    alertify.notify('Job ID '+data.job_id+' scheduled !', 'success', 3);
                     track(tracking);
                 },
                 error: function (e) {
                     alertify.notify(e.responseText, 'error', 3);
+                    if(e.status===400){
+                        alert("Error!"+e.responseText);
+                    }
                 }
             });
         });
@@ -547,6 +550,11 @@ function updateJobsTable(){
                 var row="<tr><td>"+job.id+"</td><td>"+job.startTime+"</td><td>"+job.endTime+"</td><td>"+job.status+"</td><td><button onclick='getWorkflow("+job.id+")' class='btn btn-default'>Load</button></td></tr>"
                 table.append(row);
             }
+        },
+        error: function (e) {
+            if(e.status===400){
+                alert("Error!"+e.responseText);
+            }
         }
     });
 }
@@ -593,6 +601,11 @@ function getWorkflow(jobId){
                 track(jobId);
             }
             $('#jobsModal').modal('toggle');
+        },
+        error: function (e) {
+            if(e.status===400){
+                alert("Error!"+e.responseText);
+            }
         }
     });
 }
@@ -612,6 +625,11 @@ function clearSchedule(jobId){
         },
         success: function () {
             updateJobsTable();
+        },
+        error: function (e) {
+            if(e.status===400){
+                alert("Error!"+e.responseText);
+            }
         }
     });
 }
@@ -648,6 +666,11 @@ function getWorkflowStatus(jobId,intervalId){
             if(data.status==="COMPLETED"||data.status==="FAILED"){
                 clearInterval(intervalId);
                 tracking=0;
+            }
+        },
+        error: function (e) {
+            if(e.status===400){
+                alert("Error!"+e.responseText);
             }
         }
     });
@@ -983,10 +1006,12 @@ function  reset() {
             if(e.status===403){
                 $("#resetError").html("Current Password is incorrect!");
             }
+            if(e.status===400){
+                alert("Error!"+e.responseText);
+            }
             else{
                 alertify.notify("Sorry there was an error", 'error', 3);
             }
-
         }
     });
 }
@@ -1021,6 +1046,9 @@ function deleteModule(module){
                 alertify.notify('Error Deleting module', 'error', 3);
                 if(e.status===403){
                     alertify.notify(e.responseText, 'error', 10);
+                }
+                if(e.status===400){
+                    alert("Error!"+e.responseText);
                 }
             }
         });

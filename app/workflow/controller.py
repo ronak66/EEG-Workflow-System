@@ -52,7 +52,6 @@ def jar_upload(data,files):
             response=json.dumps({'new_blocks_length': num_of_new_blocks}),
             status=200
         )
-        # return str(num_of_new_blocks)
 
     except Exception as e:
         return Response(
@@ -136,23 +135,35 @@ def generate_attribute_list(attributes):
 
 @Auth.auth_required
 def schedule_new_job(data):
-    print('-'*80,'Scheduling Job',sep='\n')
+    try:
+        print('-'*80,'Scheduling Job',sep='\n')
 
-    data = json.loads(data['workflow'])
-        
-    workflow = {
-        'workflow': data,
-        'executionStatus': data['blocks']
-    }
-    new_job = Job(
-        user_id = g.user['id'],
-        workflow = workflow     
-    )
-    new_job.save()
+        data = json.loads(data['workflow'])
+            
+        workflow = {
+            'workflow': data,
+            'executionStatus': data['blocks']
+        }
+        new_job = Job(
+            user_id = g.user['id'],
+            workflow = workflow     
+        )
+        new_job.save()
 
-    execute_scheduled_job.delay(data,new_job.id)
-    
-    return str(new_job.id)
+        execute_scheduled_job.delay(data,new_job.id)
+
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'job_id': new_job.id}),
+            status=200
+        )
+
+    except Exception as e:
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': str(e)}),
+            status=400
+        )
 
 @celery.task
 def execute_scheduled_job(workflow,job_id):
@@ -167,12 +178,11 @@ def execute_scheduled_job(workflow,job_id):
             module_blocks_mapping[module] = mapping.string_classobject_mapping
         graph = Graph(workflow,module_blocks_mapping,job_id)
         graph.bfs()
-    graph.execute_workflow()
-    # return {"status": True}
-
+        graph.execute_workflow()
 
 @Auth.auth_required
 def get_all_scheduled_jobs():
+    print('-'*80,'List of scheduled Jobs',sep='\n')
     user_id = g.user['id']
     jobs = Job.get_jobs_via_user_id(user_id)
     job_list = []
@@ -184,35 +194,11 @@ def get_all_scheduled_jobs():
             "status": job.status
         }
         job_list.append(job_details)
-    # print(job_list)    
-
-    # json_format = json.dumps(
-    #     [
-    #         {
-    #             "startTime": "2/6/20 1:36 PM",
-    #             "id": 36,
-    #             "endTime": "2/6/20 1:36 PM",
-    #             "status": "COMPLETED"
-    #         },
-    #         {
-    #             "startTime": "2/6/20 1:35 PM",
-    #             "id": 35,
-    #             "endTime": "",
-    #             "status": "FAILED"
-    #         },
-    #         {
-    #             "startTime": "2/6/20 1:32 PM",
-    #             "id": 34,
-    #             "endTime": "",
-    #             "status": "FAILED"
-    #         }
-    #     ]
-    # )
     return json.dumps(job_list)
 
 @Auth.auth_required
 def get_job_details(data):
-    # print("/"*80,data['jobId'])
+    print('-'*80,'Getting Job details of id = {}'.format(data['jobId']),sep='\n')
     # json_format = c
     job_id = data['jobId']
     job = Job.query.get(job_id)
