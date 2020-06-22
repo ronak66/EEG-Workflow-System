@@ -33,6 +33,7 @@ class Addition(Block):
 
     def input_params(self,data):
         time.sleep(10)
+        # list(2)
         self.num1.set_value(int(data['num1']))
         self.num2.set_value(int(data['num2']))
 

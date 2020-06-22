@@ -1,4 +1,5 @@
 import copy
+import traceback
 from queue import Queue
 from datetime import datetime
 
@@ -110,12 +111,14 @@ class Graph:
             input_data = {}
             input_data.update(block['values'])
             module_blocks = copy.deepcopy(self.module_blocks_mapping[module.split(':')[1]])
-            print(block_id)
+            print('Executing block id: {}'.format(block_id))
             if(block_id not in self.transpose_adjacency_list.keys()):
                 try:
                     module_blocks[block_type].input_params(input_data)
                     module_blocks[block_type].execute()
-                except Exception as e:
+                except:
+                    print('Status: FAILED')
+                    e = traceback.format_exc()
                     self.update_job_status(block_id,str(e),'FAILED')
                     return str(e)
             else:
@@ -128,7 +131,9 @@ class Graph:
                     
                     module_blocks[block_type].input_params(input_data)
                     module_blocks[block_type].execute()                    
-                except Exception as e:
+                except:
+                    print('Status: FAILED')
+                    e = traceback.format_exc()
                     self.update_job_status(block_id,str(e),'FAILED')
                     return str(e)
 
@@ -145,6 +150,7 @@ class Graph:
             if(list(self.final_queue.queue)[length-1] == block_id):
                 status = 'COMPLETED'
             self.update_job_status(block_id,output,status)
+            print('Status: {}'.format(status))
             
 
     def update_job_status(self,block_id,msg,status):
@@ -152,12 +158,13 @@ class Graph:
         workflow = copy.deepcopy(job.workflow)
         for block in workflow['executionStatus']:
             if(block['id'] == block_id):
-                block['output'] = {
-                    'type': 'STRING',
-                    'value': str(msg)
-                }
+                if(status != 'FAILED'):
+                    block['output'] = {
+                        'type': 'STRING',
+                        'value': str(msg)
+                    }
                 block['completed'] = True
-                if(status == 'Failed'):
+                if(status == 'FAILED'):
                     block['error'] = True
                     block['stderr'] = str(msg)
                 else:    
@@ -169,16 +176,3 @@ class Graph:
             job.end_time = datetime.utcnow()
         job.workflow = workflow
         job.commit()
-
-
-# def lol():
-#     import os
-#     import importlib
-#     from app.workflow.Graph import Graph
-#     modules = [name for name in os.listdir('blocks') if \
-#         os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
-#     module_blocks_mapping = {}
-#     for module in modules:
-#         mapping = importlib.import_module('blocks.{}'.format(module))
-#         module_blocks_mapping[module] = mapping.string_classobject_mapping
-#     return module_blocks_mapping

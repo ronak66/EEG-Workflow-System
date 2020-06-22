@@ -167,7 +167,7 @@ def schedule_new_job(data):
 
 @celery.task
 def execute_scheduled_job(workflow,job_id):
-    print("90"*20)
+    print("-"*80,"Executing Scheduled Job")
     sys.path.append(os.getcwd())
     with app.app_context():
         modules = [name for name in os.listdir('blocks') if \
