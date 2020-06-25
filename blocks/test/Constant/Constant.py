@@ -11,7 +11,7 @@ class Constant(Block):
     def __init__(self):
         self.num = BlockParameter(
             name='constant value',
-            attribute_type='int',
+            attribute_type='FILE[]',
             defaultvalue=10
         )
         self.output = BlockOutput(

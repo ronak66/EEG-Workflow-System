@@ -35,5 +35,8 @@ app.register_blueprint(user, url_prefix='/api/users')
 from app.workflow.routes import workflow
 app.register_blueprint(workflow, url_prefix='/api/workflow')
 
+from app.connector.routes import connector
+app.register_blueprint(connector)
+
 
 print(app.url_map)

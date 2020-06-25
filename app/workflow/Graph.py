@@ -30,11 +30,19 @@ class Graph:
         block1's output is connected to block2's input
 
         adjacency_list = {
-            block1_id: {
-                block2_id,
-                block2_input_name,
-                block1_output_name
-            }
+            block1_id: [
+                block2_id
+            ]
+        }
+
+        transpose_adjacency_list = {
+            block2_id: [
+                {
+                    'id': block1_id,
+                    'input_name': block2_input_name,
+                    'output_name': block1_output_name
+                }
+            ]
         }
         '''
         for edge in self.workflow['edges']:
