@@ -1,0 +1,30 @@
+[
+  200,
+  {
+    "Content-type": "text/html"
+  },
+  {
+    "cdc": [],
+    "cwd": {
+      "date": "26 Jun 2020 09:50",
+      "hash": "d9848e6a887c83d2c461aa41b6ec6708",
+      "mime": "directory",
+      "name": "Home",
+      "read": true,
+      "rel": "Home",
+      "rm": false,
+      "size": 0,
+      "write": true
+    },
+    "debug": {
+      "time": 0.0002963542938232422
+    },
+    "tree": {
+      "dirs": [],
+      "hash": "d9848e6a887c83d2c461aa41b6ec6708",
+      "name": "Home",
+      "read": true,
+      "write": true
+    }
+  }
+]

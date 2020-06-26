@@ -13,6 +13,7 @@ class Constant(Block):
             name='constant value',
             attribute_type='FILE[]',
             defaultvalue=10
+            # defaultvalue=''
         )
         self.output = BlockOutput(
             name='output',
