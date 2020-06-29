@@ -35,7 +35,7 @@ app.register_blueprint(user, url_prefix='/api/users')
 from app.workflow.routes import workflow
 app.register_blueprint(workflow, url_prefix='/api/workflow')
 
-from app.elf_connector.routes import elf_connector
+from app.connector.routes import elf_connector
 app.register_blueprint(elf_connector)
 
 

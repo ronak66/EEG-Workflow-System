@@ -379,7 +379,8 @@ var contex_menu = {
         }
         else {
             $('#elfinder').elfinder({
-                url : 'elfinder/connector'
+                url : 'elfinder/connector',
+                transport : new elFinderSupportVer1()
             });
             initializeTree();
         }
@@ -745,6 +746,7 @@ function selectFile(event,target){
         $('#browseModal').css('z-index',9999);
         $('#elfinderBrowse').elfinder({
             url : 'elfinder/connector',
+            transport : new elFinderSupportVer1(),
             commandsOptions:{
                 getfile: {
                     oncomplete: 'destroy'
@@ -860,7 +862,8 @@ function login(){
 
                 initializeTree();
                 $('#elfinder').elfinder({
-                    url : 'elfinder/connector'
+                    url : 'elfinder/connector',
+                    transport : new elFinderSupportVer1()
                 });
                 if(data.reset)
                     $("#resetModal").modal("show");
