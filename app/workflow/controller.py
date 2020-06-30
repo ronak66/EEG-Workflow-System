@@ -14,7 +14,7 @@ from app.workflow.dummy import a, b, c
 @Auth.auth_required
 def jar_upload(data,files):
     try:
-        print('-'*80,'Jar Upload',sep='\n')
+        print('='*80,'Jar Upload',sep='\n')
         print(files['file'].filename)
         archive = zipfile.ZipFile(files['file'])
         old_modules = [name for name in os.listdir('blocks') if os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
@@ -64,7 +64,7 @@ def jar_upload(data,files):
 @Auth.auth_required
 def tree_initialization():
     try:
-        print('-'*80,'Tree Initialisation',sep='\n')
+        print('='*80,'Tree Initialisation',sep='\n')
         modules = [name for name in os.listdir('blocks') if \
             os.path.isdir(os.path.join('blocks', name)) and name != '__pycache__' ]
         block_list = []
@@ -136,7 +136,7 @@ def generate_attribute_list(attributes):
 @Auth.auth_required
 def schedule_new_job(data):
     try:
-        print('-'*80,'Scheduling Job',sep='\n')
+        print('='*80,'Scheduling Job',sep='\n')
 
         data = json.loads(data['workflow'])
             
@@ -182,7 +182,7 @@ def execute_scheduled_job(workflow,job_id):
 
 @Auth.auth_required
 def get_all_scheduled_jobs():
-    print('-'*80,'List of scheduled Jobs',sep='\n')
+    print('='*80,'List of scheduled Jobs',sep='\n')
     user_id = g.user['id']
     jobs = Job.get_jobs_via_user_id(user_id)
     job_list = []
@@ -198,7 +198,7 @@ def get_all_scheduled_jobs():
 
 @Auth.auth_required
 def get_job_details(data):
-    print('-'*80,'Getting Job details of id = {}'.format(data['jobId']),sep='\n')
+    print('='*80,'Getting Job details of id = {}'.format(data['jobId']),sep='\n')
     # json_format = c
     job_id = data['jobId']
     job = Job.query.get(job_id)

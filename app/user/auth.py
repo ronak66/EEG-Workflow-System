@@ -82,10 +82,10 @@ class Auth():
                     response=json.dumps({'error': 'user does not exist, invalid token'}),
                     status=404
                 )
-            print("=-"*80)
+            print("-"*80)
             print("api-token: {}".format(token))
             print("user: {}".format(check_user))
-            print("=-"*80)
+            print("-"*80)
             g.user = {'id': user_id}
             return func(*args, **kwargs)
         return decorated_auth
