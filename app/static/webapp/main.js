@@ -362,7 +362,8 @@ var contex_menu = {
             $("#login").hide();
             $("#mainMenu").show();
             $("#schedule").show();
-            document.getElementById("myAccountButton").innerHTML="Hi, "+$.cookie("email");
+            // document.getElementById("myAccountButton").innerHTML="Hi, "+$.cookie("email");
+            document.getElementById("myAccountButton").innerHTML="Hi, "+$.cookie("username");
         }
         else{
             $("#myAccount").hide();
@@ -848,6 +849,7 @@ function login(){
                 $.cookie("email", data.email, { expires : 10 });
                 $.cookie("token", data.token, { expires : 10 });
                 username = data.username
+                $.cookie("username", data.username, { expires : 10 });
                 // document.getElementById("myAccountButton").innerHTML='Hi, '+$.cookie("email");
                 document.getElementById("myAccountButton").innerHTML='Hi, '+username;
                 $('#loginModal').modal('hide');
