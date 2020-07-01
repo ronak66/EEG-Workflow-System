@@ -4,6 +4,7 @@ from blocks.Block import Block
 from blocks.BlockInput import BlockInput
 from blocks.BlockParameter import BlockParameter
 from blocks.BlockOutput import BlockOutput
+from blocks.ParameterType import ParameterType
 
 class Addition(Block):
 
@@ -15,19 +16,19 @@ class Addition(Block):
             name='num1',
             min_cardinality=1,
             max_cardinality=1,
-            attribute_type='int'
+            attribute_type=ParameterType.NUMBER
         )
         self.num2 = BlockInput(
             name='num2',
             min_cardinality=1,
             max_cardinality=1,
-            attribute_type='int'
+            attribute_type=ParameterType.NUMBER
         )
         self.output = BlockOutput(
             name='output',
             min_cardinality=1,
             max_cardinality=1,
-            attribute_type='int'
+            attribute_type=ParameterType.NUMBER
         )
         
 

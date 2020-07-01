@@ -2,6 +2,7 @@ from blocks.Block import Block
 from blocks.BlockInput import BlockInput
 from blocks.BlockParameter import BlockParameter
 from blocks.BlockOutput import BlockOutput
+from blocks.ParameterType import ParameterType
 
 class Constant(Block):
 
@@ -11,7 +12,7 @@ class Constant(Block):
     def __init__(self):
         self.num = BlockParameter(
             name='constant value',
-            attribute_type='FILE[]',
+            attribute_type=ParameterType.NUMBER,
             defaultvalue=10
             # defaultvalue=''
         )
@@ -19,7 +20,7 @@ class Constant(Block):
             name='output',
             min_cardinality=1,
             max_cardinality=1,
-            attribute_type='int'
+            attribute_type=ParameterType.NUMBER
         )
 
     def input_params(self,data):
