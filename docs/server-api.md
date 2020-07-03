@@ -1,6 +1,38 @@
 # API Doccumentation
 
-## List of APIs
+## Open Endpoints
+
+Open endpoints require no Authentication.
+
+* [Login](api/login.md) : `POST /api/users/login/`
+* [Register](api/register.md) : `POST /api/users/register/`
+
+## Endpoints that require Authentication
+
+Closed endpoints require a valid Token to be included in the header of the
+request. A Token can be acquired from the Login view above.
+
+### Current User related
+
+Each endpoint manipulates or displays information related to the User whose
+Token is provided with the request:
+
+* [Get User Details](api/user/user_details.md) : `GET /api/user/details`
+* [Reset Password](api/user/reset.md) : `PUT /api/users/reset`
+
+### Workflow related
+
+Endpoints for performing Workflow related requests that the Authenticated User
+has permissions to access.
+
+* [Blocks Zip Upload](api/workflow/get.md) : `GET /api/workflow/upload`
+* [Tree Initialization](api/workflow/tree_initialise.md) : `POST /api/workflow/initialises`
+* [Schedule Job - GET](api/workflow/schedule_get.md) : `GET /api/workflow/schedule`
+* [Schedule Job - POST](api/workflow/schedule_post.md) : `POST /api/workflow/schedule`
+* [Job Details](api/workflow/pk/job_details.md) : `POST /api/workflow/jobs`
+
+
+<!-- # List of APIs
 
 - [User APIs](#User-APIs)  
     * [Register](#Register)
@@ -11,13 +43,14 @@
     * [Tree Initialization](#tree-initialization)
     * [Schedule Job - GET](#schedule-job-get)
     * [Schedule Job - POST](#schedule-job-post)
-    * [Job Details](#job-details)
+    * [Job Details](#job-details) -->
 
 
 
-## User APIs
+<!-- # User APIs
 
-### Register
+## 1. Register
+<hr style="width:50%;text-align:left;margin-left:0">
 This is an API to register a new user
 ```
 route: /api/users/register
@@ -45,7 +78,7 @@ Return JSON format (```mimetype: application/json```) from server to client
     }
     ```
 
-### Login
+## Login
 This is an API to login an already exsisting user
 ```
 route: /api/users/login
@@ -75,7 +108,7 @@ Return JSON format (```mimetype: application/json```) from server to client
         "error": "<whatever the error is>"
     }
     ```
-### Reset
+## Reset
 This is an API to login an already exsisting user
 ```
 route: /api/users/reset
@@ -100,4 +133,4 @@ Return JSON format (```mimetype: application/json```) from server to client
     {
         "error": "<whatever the error is>"
     }
-    ```
+    ``` -->
