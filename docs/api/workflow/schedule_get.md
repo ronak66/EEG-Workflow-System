@@ -19,7 +19,9 @@ This API returns a list of previously scheduled jobs by the user.
 **Code** : `200 SUCCESS`
 
 **Content** :    
-Return JSON format (```mimetype: application/json```) from server to client. Check the API response format for the Arithmetic block as an example.
+
+Authentication token in the cookie header.  
+Return JSON format (```mimetype: application/json```) from server to client. Check the example response bellow
 
 ```json
 [

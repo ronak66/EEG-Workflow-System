@@ -33,7 +33,7 @@ Return JSON format (```mimetype: application/json```) from server to client
 
 ```json
 {
-    "success": "New Board Created"
+    "success": "New User Created"
 }
 ```
 

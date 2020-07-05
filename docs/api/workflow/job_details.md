@@ -14,7 +14,7 @@ This API is to schedule a new job to execute the workflow.
 
 **Data constraints** : 
 
-Authentication token in the cookie header.  
+Authentication token in the cookie header.    
 Form-data (```application-type: multipart/form-data```) format expected from the client to the server.
 
 ```json

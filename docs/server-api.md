@@ -29,4 +29,4 @@ has permissions to access.
 * [Tree Initialization](api/workflow/tree_initialize.md) : `POST /api/workflow/initialize`
 * [Schedule Job - GET](api/workflow/schedule_get.md) : `GET /api/workflow/schedule`
 * [Schedule Job - POST](api/workflow/schedule_post.md) : `POST /api/workflow/schedule`
-* [Job Details](api/workflow/pk/job_details.md) : `POST /api/workflow/jobs`
+* [Job Details](api/workflow/job_details.md) : `POST /api/workflow/jobs`
