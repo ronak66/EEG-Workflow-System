@@ -657,6 +657,7 @@ function getWorkflowStatus(jobId,intervalId){
             request.setRequestHeader("token",  $.cookie("token"));
         },
         success: function (data) {
+            console.log(data)
             data=JSON.parse(data);
             var jobStatus= document.getElementById("jobStatus");
             jobStatus.innerHTML="Job ID:"+data.id+" Status:"+data.status+" Start Time:"+data.startTime+

@@ -1,3 +1,5 @@
+&#8592; [Back to API docs](/EEG-Workflow-System/server-api)
+
 # User Login
 
 Login user by authenticate the existing user.
@@ -31,10 +33,10 @@ Return JSON format (```mimetype: application/json```) from server to client
 ```json
 {
     "reset": false,
-    "id": "[User's id]", 
-    "email": "[User's Email]",
-    "token": "[Hashed Token]",
-    "username": "[User's Username]"
+    "id": "[user id]", 
+    "email": "[user email]",
+    "token": "[hashed token]",
+    "username": "[user Username]"
 }
 ```
 

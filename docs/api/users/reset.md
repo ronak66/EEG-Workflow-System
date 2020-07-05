@@ -1,46 +1,51 @@
-# Show Current User
+&#8592; [Back to API docs](/EEG-Workflow-System/server-api)
 
-Get the details of the currently Authenticated User along with basic
-subscription information.
+# Reset User Password
 
-**URL** : `/api/user/`
+Reset a new password for user account, i.e change password.
 
-**Method** : `GET`
+**URL** : `/api/users/reset`
+
+**Method** : `POST`
 
 **Auth required** : YES
 
 **Permissions required** : None
 
+**Data constraints** :  
+
+Authentication token in the cookie header.   
+Form-data (```application-type: multipart/form-data```) format expected from the client to the server.
+
+```json
+{
+    "currentPassword": "[old/current password]",
+    "newPassword": "[new password]"
+}
+```
+
 ## Success Response
 
-**Code** : `200 OK`
+**Code** : `200 SUCCESS`
 
-**Content examples**
-
-For a User with ID 1234 on the local database where that User has saved an
-email address and name information.
+**Content** :    
+Return JSON format (```mimetype: application/json```) from server to client
 
 ```json
 {
-    "id": 1234,
-    "first_name": "Joe",
-    "last_name": "Bloggs",
-    "email": "joe25@example.com"
+    "success": "Password Changed"
 }
 ```
 
-For a user with ID 4321 on the local database but no details have been set yet.
+## Error Responses
 
+**Codes** :  
+- `400 Bad Request` (If python error occurs)  
+- `403 Forbidden` (If oldpassword does not match)
+
+**Content** :  
 ```json
 {
-    "id": 4321,
-    "first_name": "",
-    "last_name": "",
-    "email": ""
+    "error": "[whatever the error is]"
 }
 ```
-
-## Notes
-
-* If the User does not have a `UserInfo` instance when requested then one will
-  be created for them.

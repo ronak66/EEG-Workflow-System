@@ -61,7 +61,7 @@ def create_new_user(data):
         print("New User Created","="*80,sep="\n")
         return Response(
             mimetype="application/json",
-            response=json.dumps({'success': "New Board Created"}),
+            response=json.dumps({'success': "New User Created"}),
             status=201
         )
     except Exception as e:
@@ -85,7 +85,7 @@ def change_password(data):
             return Response(
                 mimetype="application/json",
                 response=json.dumps({'success': 'Password Changed'}),
-                status=201
+                status=200
             )
         else:
             print("Incorrect Password","="*80,sep="\n")
