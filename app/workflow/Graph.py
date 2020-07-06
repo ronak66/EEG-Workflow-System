@@ -81,6 +81,9 @@ class Graph:
                 ]
 
     def bfs(self):
+        '''
+        Generates BFS node tree
+        '''
         self.create_adjacency_list()
         self.create_block_id_mapping()
         all_block_ids = self.mp_id_block.keys()
@@ -112,6 +115,9 @@ class Graph:
                         visited[ngb_block_id] = 1
 
     def execute_workflow(self):
+        '''
+        Execute the workflow
+        '''
         for block_id in list(self.final_queue.queue):
             block = self.mp_id_block[block_id]
             block_type = block['type']
@@ -162,6 +168,9 @@ class Graph:
             
 
     def update_job_status(self,block_id,msg,status):
+        '''
+        Update the Job table after each block execution
+        '''
         job = Job.query.get(self.job_id)
         workflow = copy.deepcopy(job.workflow)
         for block in workflow['executionStatus']:

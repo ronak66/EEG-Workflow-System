@@ -10,18 +10,13 @@
 4. [Contributing to EEG Workflow System](contribute.md)
 
 ## Other links
-- [GSoC 2018 Java Workflow Designer Docs](pintojoey.com/gsoc2018/)
-- [Link to Paper | IEEE Explore](https://ieeexplore.ieee.org/document/8941664)
+- [GSoC 2018 Java Workflow Designer Docs](https://pintojoey.com/gsoc2018/)
+- [Link to Paper - IEEE Explore](https://ieeexplore.ieee.org/document/8941664)
 
 
-<div class="footer" style="position: fixed;
-    bottom: 0;
-    width: 100%;
-}">
 <hr>
 
 <div class="d-none d-sm-block d-md-none copyright pl-3">Copyright © <script type="text/javascript">         document.write(new Date().getFullYear()); </script> University of West Bohemia, All rights reserved.
-</div>
 </div>
 
 

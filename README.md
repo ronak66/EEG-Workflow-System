@@ -49,7 +49,7 @@ $ pip3 install requirements.txt
 ```
 $ python3 server.py
 ```
-* Run redis worker on another terminal
+* Run redis worker on another terminal (inside EEG-Workflow-System directory)
 ```
 $ celery worker -A app.celery --loglevel=info
 ```

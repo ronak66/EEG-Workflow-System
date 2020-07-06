@@ -6,7 +6,7 @@ class Block(object):
     def __init__(self):
         pass
 
-    def input_params(self):
+    def input_params(self,data):
         pass
 
     def execute(self):
