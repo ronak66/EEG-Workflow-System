@@ -1,25 +1,25 @@
-# Blocks Doccumentation
+# Blocks Documentation
 
 
 ## About blocks and workflow
 
-A block is a method which takes input and produces output when executed. Each block has editable paramters which has some default value.
+A block is a method that takes input and produces output when executed. Each block has editable parameters that have some default value.
 
 A workflow is a group of blocks connected to each other where the output of one block is the input for the other. Workflows do not necessarily mean a single flow of execution, it could have multiple parallel flows.
 
-Consider a simple workflow using Arithmetic module:
-- As you can see that output of constant block is connected to input of addition block (left image).  
-- Each constant block has an editable parameter deciding the value of the contant block, as seen in the bellow image (right image).   
+Consider a simple workflow using the Arithmetic module:
+- As you can see the output of the constant block is connected to the input of the addition block.  
+- Each constant block has an editable parameter deciding the value of the constant block, as seen in the below image.   
 
 ![Workflow Example](assets/blocks/example.png)  
 ![Parameter](assets/blocks/parameter.png)    
 
-On executing the above workflow, the result produced by the workflow is shown here  .
-![Workflow Example Executed](assets/blocks/parameter.png)    
+On executing the above workflow, the result produced by the workflow is shown here.
+![Workflow Example Executed](assets/blocks/example_executed.png)    
 
-To define a block we need to specify the inputs, outputs, properties and the execution function.
+To define a block we need to specify the inputs, outputs, properties, and the execution function.
 
-The execution function may use the inputs and the properties to perform some operation and produce a single visualization and multiple outputs variables. The visualization”Previous Output” can be used to see intermediate results. The outputs (Operand3) can then be forwarded as an input to another block.
+The execution function may use the inputs and the properties to perform some operation and produce a single visualization and multiple outputs variables. The visualization” Previous Output” can be used to see intermediate results. The outputs (Operand3) can then be forwarded as input to another block.
 
 ## Create New Custom Blocks
 
@@ -99,25 +99,25 @@ class ParameterType:
     OBJECT = "OBJECT"
 ```
 
-To define a block in python, as shown in the last image, we need to follow few design pattern
-- Every block must be a python class which should inherites the ```Block``` class (shown above)
-- The new block class that you create, will overide ```input_params``` and ```execute``` method of ```Block``` class
-- Input, Output and editable Parameter variable of the custom block should be instance of ```BlockInput```, ```BlockOutput``` and ```BlockParameter``` class respectively
-- Create the input, output and editable parameter instance variables in the **\_\_init__** method of our custom class
-- Assign value to the above variables (except output variables) in ```input_params``` method
-- The ```input_params``` method takes ```data``` as only parameter. ```data``` is a dictionary of string-value pair, where key is the variable name (string) and value is the value to be assigned to that variable
-- Override the ```execute``` method in which assign the value to the output varaibles
-- Lastly override the ```Block``` class variables ```family``` and ```name``` to family the block belongs to and the name of the block
+To define a block in python, as shown in the last image, we need to follow the design pattern
+- Every block must be a python class which should inherit the ```Block``` class (shown above)
+- The new block class that you create will override ```input_params``` and ```execute``` method of ```Block``` class
+- Input, Output and editable Parameter variables of the custom block should be an instance of ```BlockInput```, ```BlockOutput``` and ```BlockParameter``` class respectively
+- Create the input, output and editable parameter instance variables in the ```__init__``` method of our custom class
+- Assign the value to the above variables (except output variables) in ```input_params``` method
+- The ```input_params``` method takes ```data``` as the only parameter. ```data``` is a dictionary of string-value pair, where the key is the variable name (string) and value is the value to be assigned to that variable
+- Override the ```execute``` method in which assign the value to the output variables
+- Lastly, override the ```Block``` class variables ```family``` and ```name``` to family the block belongs to and the name of the block
 
-In-order to understand it better, lets take example of the **Arithmetic Module**.  
-Arithmetic module contains 5 blocks:
+In order to understand it better, let's take the example of the **Arithmetic Module**.  
+The Arithmetic module contains 5 blocks:
 - Constant Block
 - Addition Block
-- Subraction Block
+- Subtraction Block
 - Multiplication Block
 - Division Block
 
-Lets see the ```Addition``` block class:
+Let's see the ```Addition``` block class:
 ```python
 import time
 
@@ -207,15 +207,15 @@ class Constant(Block):
         value = self.num.value
         self.output.set_value(value)
 ```
-As you can see it is similar to Addition block. Note that BlockParameter needs to have a default value.
+As you can see it is similar to the Addition block. Note that BlockParameter needs to have a default value.
 
-Each variable input, output or parameter has ```attribute_type```. The ```arrtibute_type``` is a **string** used by the frontend to prevent connections where types does not match. For example, if block1 needs an input of *list of integers* and block2 outputs just an *integer*, then connecting output of block2 to input of block1 should not be allowed. Hence ```atrribute_type``` helps in avoiding type mis-match.  
+Each variable input, output, or parameter has ```attribute_type```. The ```arrtibute_type``` is a **string** used by the frontend to prevent connections where types do not match. For example, if block1 needs an input of *list of integers* and block2 outputs just an *integer*, then connecting the output of block2 to the input of block1 should not be allowed. Hence ```atrribute_type``` helps in avoiding type mismatch.  
 
 ## Create Module
 
-Group of all the custom blocks forms a module. **Arithmetic module** consists of 5 blocks as mentioned above.
+The Group of all the custom blocks forms a module. **Arithmetic module** consists of 5 blocks as mentioned above.
 
-Note: For a module, always follow a proper directory structure of family. Taking Arithmetic module as an example, the structure followed by it is shown bellow:  
+Note: For a module, always follow a proper directory structure of the family. Taking Arithmetic module as an example, the structure followed by it is shown below:  
 
 ```bash
 ├── Arithmetic
@@ -234,8 +234,10 @@ Note: For a module, always follow a proper directory structure of family. Taking
 ```
 
 Lastly:
-- The outer most **\_\_init__.py** file should contain a dictionary variable called ```string_classobject_mapping```. The ```string_classobject_mapping``` is dict with key as ```CustomBlockclass.name``` and value as the instance of the your custom block class, ```CustomBlockclass()```  
+- The outermost **\_\_init__.py** file should contain a dictionary variable called ```string_classobject_mapping```. The ```string_classobject_mapping``` is dict with key as ```CustomBlockclass.name``` and value as the instance of your custom block class, ```CustomBlockclass()```  
+
 For Arithmetic module, the outermost **\_\_init__.py** file contains:  
+
 ```python
 from .AddSub.Addition import Addition
 from .AddSub.Subraction import Subraction

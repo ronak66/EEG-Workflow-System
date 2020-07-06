@@ -55,7 +55,7 @@ Return JSON format (```mimetype: application/json```) from server to client. Che
     },
     {
         "module": "Arithmetic.zip:Arithmetic",
-        "name": "Subraction",
+        "name": "Subtraction",
         "owner": "guest@guest.com",
         "public": false,
         "description": "",

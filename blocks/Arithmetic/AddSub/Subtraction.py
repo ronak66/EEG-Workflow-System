@@ -4,10 +4,10 @@ from blocks.BlockParameter import BlockParameter
 from blocks.BlockOutput import BlockOutput
 from blocks.ParameterType import ParameterType
 
-class Subraction(Block):
+class Subtraction(Block):
 
     family = 'AddSub'
-    name = 'Subraction'
+    name = 'Subtraction'
 
     def __init__(self):
         self.num1 = BlockInput(
