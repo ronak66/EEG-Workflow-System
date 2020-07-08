@@ -15,7 +15,7 @@
  - Efforts are also targeted to make the tool user friendly and enable easy deployment of workflows on distributed 
  computing frameworks.
 
-  - GSoC 2020 EEG and deep learning workflow project is developed and handeled by [Ronak Doshi](https://github.com/ronak66)
+  - GSoC 2020 EEG and deep learning workflow project is developed and handeled by [Ronak Doshi](https://github.com/ronak66) under the guidance and mentorship of [Lukáš Vařeka](http://neuroinformatics.kiv.zcu.cz/actions/read/lukas-vareka_2015-01-27)
  
  - This project is a continuation of the project develeped in Google Summer of Code 2018 by [Joey Pinto](https://github.com/pintojoey) under the mentorship of the International 
  Neuroinformatics Coordinating Facility, Sweden. The GSoC 2018 project was writern in Java (server and deep-learning part)
