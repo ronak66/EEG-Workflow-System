@@ -1,6 +1,8 @@
 # Python-Based EEG and Deeplearning Workflow Docs
 
 [![Doccumentation](https://img.shields.io/badge/Github-code-003A70.svg?style=for-the-badge&logo=github)](https://github.com/ronak66/EEG-Workflow-System)
+[![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=research-gate)](https://ieeexplore.ieee.org/document/8941664)
+[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)]()
 
 ## Contents of the Doccumentation
 
@@ -15,9 +17,7 @@
 
 
 <hr>
-
-<div class="d-none d-sm-block d-md-none copyright pl-3">Copyright © <script type="text/javascript">         document.write(new Date().getFullYear()); </script> University of West Bohemia, All rights reserved.
-</div>
+Copyright ©  University of West Bohemia, All rights reserved.
 
 
 
