@@ -1,12 +1,12 @@
-# Python-Based EEG and Deeplearning Workflow Docs
+# Python-Based EEG and Deep learning Workflow Docs
 
-[![Doccumentation](https://img.shields.io/badge/Github-code-003A70.svg?style=for-the-badge&logo=github)](https://github.com/ronak66/EEG-Workflow-System)
+[![Documentation](https://img.shields.io/badge/Github-code-003A70.svg?style=for-the-badge&logo=github)](https://github.com/ronak66/EEG-Workflow-System)
 [![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=research-gate)](https://ieeexplore.ieee.org/document/8941664)
 [![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)]()
 
-## Contents of the Doccumentation
+## Contents of the Documentation
 
-1. [APIs Doccumentation](server-api.md)
+1. [APIs Documentation](server-api.md)
 2. [How to Create Blocks](blocks.md)
 3. [Workflow Execution Algorithm](workflow.md)
 4. [Contributing to EEG Workflow System](contribute.md)

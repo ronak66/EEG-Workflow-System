@@ -1,6 +1,6 @@
-# EEG-Worflow-System
+# EEG-Workflow-System
 
-[![Doccumentation](https://img.shields.io/badge/Doccumentation-here-informational.svg?style=for-the-badge&logo=read-the-docs)](https://ronak66.github.io/EEG-Workflow-System)
+[![Documentation](https://img.shields.io/badge/Documentation-here-informational.svg?style=for-the-badge&logo=read-the-docs)](https://ronak66.github.io/EEG-Workflow-System)
 [![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=research-gate)](https://ieeexplore.ieee.org/document/8941664)
 [![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)]()
 
@@ -8,20 +8,18 @@
 
 ## Overview
  - This project aims at building an easy to use graphical interface that can streamline the configuration of the parameters
- controlling individual processing sub-routines and thus make it easy to design complicated data flows and execute them for EEG signal processing and classsification.  
+ controlling individual processing sub-routines and thus make it easy to design complicated data flow and execute them for EEG signal processing and classification.  
 
- - Workflows are designed using individual component blocks that have completely configurable inputs, outputs and 
- properties. The Blocks can be combined and rearranged at runtime without making any modification to code. 
+ - Workflows are designed using individual component blocks that have completely configurable inputs, outputs and properties. The Blocks can be combined and rearranged at runtime without making any modification to code. 
  
- - Efforts are also targeted to make the tool user friendly and enable easy deployment of workflows on distributed 
- computing frameworks.
+ - Efforts are also targeted to make the tool user friendly and enable easy deployment of workflows on distributed computing frameworks.
 
-  - GSoC 2020 EEG and deep learning workflow project is developed and handeled by [Ronak Doshi](https://github.com/ronak66) under the guidance and mentorship of [Lukáš Vařeka](http://neuroinformatics.kiv.zcu.cz/actions/read/lukas-vareka_2015-01-27)
+  - GSoC 2020 EEG and deep learning workflow project is developed and handled by [Ronak Doshi](https://github.com/ronak66) under the guidance and mentorship of [Lukáš Vařeka](http://neuroinformatics.kiv.zcu.cz/actions/read/lukas-vareka_2015-01-27)
  
- - This project is a continuation of the project develeped in Google Summer of Code 2018 by [Joey Pinto](https://github.com/pintojoey) under the mentorship of the International 
- Neuroinformatics Coordinating Facility, Sweden. The GSoC 2018 project was writern in Java (server and deep-learning part)
+ - This project is a continuation of the project developed in Google Summer of Code 2018 by [Joey Pinto](https://github.com/pintojoey) under the mentorship of the International 
+ Neuroinformatics Coordinating Facility, Sweden. The GSoC 2018 project was written in Java (server and deep-learning part)
  
- - In GSoC 2020 we are shifting the server-part and the deep-learning-part to Python (version 3.6) using Flask and Tensorflow respectively. The reason behind the shift is the avaibility of better deep-learning and mne libraries in python for EEG processing. There has been no change in the UI, the UI code is same as that of gsoc2018.
+ - In GSoC 2020 we are shifting the server-part and the deep-learning-part to Python (version 3.6) using Flask and Tensorflow respectively. The reason behind the shift is the availability of better deep-learning and mne libraries in python for EEG processing. There has been no change in the UI, the UI code is the same as that of gsoc2018.
 
 
 
@@ -31,13 +29,13 @@
 $ git clone https://github.com/ronak66/EEG-Workflow-System.git
 $ cd EEG-Workflow-System
 ```
-**2. Install and Create a Virtual Enviroment (If already installed, skip 1st command)**    
+**2. Install and Create a Virtual Environment (If already installed, skip 1st command)**    
 ```
 $ python3 -m pip install --user virtualenv
 $ python3 -m venv env
 $ source env/bin/activate
 ```
-**3. Install Reddis server to run the workflow in the background**  
+**3. Install Redis server to run the workflow in the background**  
 ```
 $ sudo apt-get install redis-server
 ```

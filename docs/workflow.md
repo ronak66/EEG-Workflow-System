@@ -1,6 +1,6 @@
 # Workflow and Execution 
 
-Here we are going to discuss about the algorithm that we use to execute a complex graph of blocks connected to each other (workflow).
+Here we are going to discuss the algorithm that we use to execute a complex graph of blocks connected to each other (workflow).
 
 ![Workflow Example](assets/blocks/example.png)  
 In order to execute the above workflow of blocks, we use simple graph theory. The frontend provides a list of blocks and edges in the workflow, using which be build a graph. The graph is nothing but an adjacency list. Note that it is a directed graph.  

@@ -1,4 +1,4 @@
-# API Doccumentation
+# API Documentation
 
 ## Open Endpoints
 
