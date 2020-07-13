@@ -31,8 +31,8 @@ class Division(Block):
         
 
     def input_params(self,data):
-        self.num1.set_value(int(data['num1']))
-        self.num2.set_value(int(data['num2']))
+        self.num1.set_value(data['num1'])
+        self.num2.set_value(data['num2'])
 
     def execute(self):
         value = self.num1.value / self.num2.value

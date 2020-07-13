@@ -701,6 +701,7 @@ function populateOutputs(data){
                         }
                         else if (outputObj.type==="FILE"){
                             output+="<a href=\"api/workflow/file/"+outputObj.value.filename+"\">"+outputObj.value.title+"</a>";
+                            // output+='<a href="api/workflow/file/'+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Output</button></a>';
                         }
                         else if (outputObj.type==="TABLE"){
                             output+="<br/>"+

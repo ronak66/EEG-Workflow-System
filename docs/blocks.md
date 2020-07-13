@@ -154,8 +154,8 @@ class Addition(Block):
         
 
     def input_params(self,data):
-        self.num1.set_value(int(data['num1']))
-        self.num2.set_value(int(data['num2']))
+        self.num1.set_value(data['num1'])
+        self.num2.set_value(data['num2'])
 
     def execute(self):
         value = self.num1.value + self.num2.value
@@ -201,13 +201,15 @@ class Constant(Block):
         )
 
     def input_params(self,data):
-        self.num.set_value(data['constant value'])
+        self.num.set_value(int(data['constant value']))
 
     def execute(self):
         value = self.num.value
         self.output.set_value(value)
 ```
 As you can see it is similar to the Addition block. Note that BlockParameter needs to have a default value.
+
+**Note: Value for each ```BlockParameter``` instance variable comes as a string from frontend, hence it always needs to be type-casted. As you can see in the ```input_params``` method of Constant block, we type-casted the ```num``` variable to ```int``` which is a block parameter.**
 
 Each variable input, output, or parameter has ```attribute_type```. The ```arrtibute_type``` is a **string** used by the frontend to prevent connections where types do not match. For example, if block1 needs an input of *list of integers* and block2 outputs just an *integer*, then connecting the output of block2 to the input of block1 should not be allowed. Hence ```atrribute_type``` helps in avoiding type mismatch.  
 

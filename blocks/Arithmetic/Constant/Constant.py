@@ -24,7 +24,7 @@ class Constant(Block):
         )
 
     def input_params(self,data):
-        self.num.set_value(data['constant value'])
+        self.num.set_value(int(data['constant value']))
 
     def execute(self):
         value = self.num.value

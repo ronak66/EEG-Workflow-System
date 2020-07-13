@@ -8,8 +8,9 @@
 
 ## Overview
  - This project aims at building an easy to use graphical interface that can streamline the configuration of the parameters
- controlling individual processing sub-routines and thus make it easy to design complicated data flows and execute them.  
- Workflows are designed using individual component blocks that have completely configurable inputs, outputs and 
+ controlling individual processing sub-routines and thus make it easy to design complicated data flows and execute them for EEG signal processing and classsification.  
+
+ - Workflows are designed using individual component blocks that have completely configurable inputs, outputs and 
  properties. The Blocks can be combined and rearranged at runtime without making any modification to code. 
  
  - Efforts are also targeted to make the tool user friendly and enable easy deployment of workflows on distributed 
