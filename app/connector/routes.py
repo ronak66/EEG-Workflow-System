@@ -6,9 +6,9 @@ from flask import Blueprint, request, Response, make_response, jsonify
 from app.connector.elFinder import connector
 # from app.connector.dummy import a
 
-elf_connector = Blueprint('elf_connector', __name__)
+file_managment = Blueprint('file_managment', __name__)
 
-@elf_connector.route("/elfinder/connector", methods=["GET","POST"])
+@file_managment.route("/elfinder/connector", methods=["GET","POST"])
 def elfinder_connector():
 	print("="*80,"Elfinder Connector",sep='\n')
 	print('Files:')
@@ -66,3 +66,12 @@ def elfinder_connector():
 		response=json.dumps(response),
 		status=status
 	)
+
+@file_managment.route("/api/workflow/file/<job_id>/<filename>", methods=["GET"])
+def get_file(job_id,filename):
+	# job_id, filename = job_id_filename.split(':')
+	data = {
+		'job_id': job_id,
+		'filename': filename,
+	}
+	return data

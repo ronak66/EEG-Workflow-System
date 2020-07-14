@@ -19,7 +19,7 @@ On executing the above workflow, the result produced by the workflow is shown he
 
 To define a block we need to specify the inputs, outputs, properties, and the execution function.
 
-The execution function may use the inputs and the properties to perform some operation and produce a single visualization and multiple outputs variables. The visualization” Previous Output” can be used to see intermediate results. The outputs (Operand3) can then be forwarded as input to another block.
+The execution function may use the inputs and the properties to perform some operation and produce a single visualization and multiple outputs variables. The outputs can then be forwarded as input to another block.
 
 ## Create New Custom Blocks
 

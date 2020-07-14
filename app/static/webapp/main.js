@@ -663,9 +663,9 @@ function getWorkflowStatus(jobId,intervalId){
             jobStatus.innerHTML="Job ID:"+data.id+" Status:"+data.status+" Start Time:"+data.startTime+
                 " End Time:"+data.endTime;
             if(data.executionStatus)
-                populateOutputs(data.executionStatus);
+                populateOutputs(data.executionStatus,jobId);
             else
-                populateOutputs(data.workflow.blocks);
+                populateOutputs(data.workflow.blocks,jobId);
             if(data.status==="COMPLETED"||data.status==="FAILED"){
                 clearInterval(intervalId);
                 tracking=0;
@@ -679,7 +679,7 @@ function getWorkflowStatus(jobId,intervalId){
     });
 }
 
-function populateOutputs(data){
+function populateOutputs(data,jobId){
     for (var k in blocks.blocks) {
         var block = blocks.blocks[k];
 
@@ -700,18 +700,18 @@ function populateOutputs(data){
                             output+=outputObj.value;
                         }
                         else if (outputObj.type==="FILE"){
-                            output+="<a href=\"api/workflow/file/"+outputObj.value.filename+"\">"+outputObj.value.title+"</a>";
+                            output+="<a href=\"api/workflow/file/"+jobId+"/"+outputObj.value.filename+"\">"+outputObj.value.title+"</a>";
                             // output+='<a href="api/workflow/file/'+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Output</button></a>';
                         }
                         else if (outputObj.type==="TABLE"){
                             output+="<br/>"+
-                                '<a href="api/workflow/file/'+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Table</button></a>'+
+                                '<a href="api/workflow/file/'+jobId+"/"+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Table</button></a>'+
                                 '<a href="csv.html?csv='+outputObj.value.filename+'" target="_blank"><button class="btn btn-success btn-sm" >Open</button></a>';
 
                         }
                         else if (outputObj.type==="GRAPH"){
                             output+="<br/>"+
-                                '<a href="api/workflow/file/'+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Graph Data</button></a>'+
+                                '<a href="api/workflow/file/'+jobId+"/"+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Graph Data</button></a>'+
                                 '<a href="graph.html?graph='+outputObj.value.filename+'" target="_blank"><button class="btn btn-success btn-sm" >Open</button></a>';
                         }
                     }
