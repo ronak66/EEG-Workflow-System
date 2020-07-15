@@ -150,6 +150,9 @@ def schedule_new_job(data):
         )
         new_job.save()
 
+        path = '{}/.EEGWorkflow/Jobs/{}'.format(os.path.expanduser('~'),new_job.id)
+        os.mkdir(path) 
+
         execute_scheduled_job.delay(data,new_job.id)
 
         return Response(

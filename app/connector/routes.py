@@ -1,7 +1,7 @@
 import os
 import cgi
 import json
-from flask import Blueprint, request, Response, make_response, jsonify
+from flask import Blueprint, request, Response, make_response, jsonify, send_file
 
 from app.connector.elFinder import connector
 # from app.connector.dummy import a
@@ -69,9 +69,5 @@ def elfinder_connector():
 
 @file_managment.route("/api/workflow/file/<job_id>/<filename>", methods=["GET"])
 def get_file(job_id,filename):
-	# job_id, filename = job_id_filename.split(':')
-	data = {
-		'job_id': job_id,
-		'filename': filename,
-	}
-	return data
+	path = '{}/.EEGWorkflow/Jobs/{}/{}'.format(os.path.expanduser('~'),job_id,filename)
+	return send_file(path)

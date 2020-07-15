@@ -1,7 +1,11 @@
 import copy
+import os
 import traceback
 from queue import Queue
+from random import randrange
 from datetime import datetime
+import matplotlib.pyplot as plt
+
 
 from app.workflow.model import Job
 
@@ -129,11 +133,12 @@ class Graph:
             if(block_id not in self.transpose_adjacency_list.keys()):
                 try:
                     module_blocks[block_type].input_params(input_data)
-                    module_blocks[block_type].execute()
+                    stdout = module_blocks[block_type].execute()
+                    stdout_msg, stdout_type = self.stdout_handling(stdout)
                 except:
                     print('Status: FAILED')
                     e = traceback.format_exc()
-                    self.update_job_status(block_id,str(e),'FAILED')
+                    self.update_job_status(block_id,'FAILED',str(e))
                     return str(e)
             else:
                 try:
@@ -144,11 +149,12 @@ class Graph:
                         input_data[input_ngb['input_name']] = self.block_id_output[input_ngb_id][input_ngb_output_name]
                     
                     module_blocks[block_type].input_params(input_data)
-                    module_blocks[block_type].execute()                    
+                    stdout = module_blocks[block_type].execute()
+                    stdout_msg, stdout_type = stdout_handling(stdout)                    
                 except:
                     print('Status: FAILED')
                     e = traceback.format_exc()
-                    self.update_job_status(block_id,str(e),'FAILED')
+                    self.update_job_status(block_id,'FAILED',str(e))
                     return str(e)
 
 
@@ -159,15 +165,18 @@ class Graph:
 
             self.block_id_output[block_id] = output
 
+            # Updating the Job Table     
             status = 'RUNNING'
             length = len(list(self.final_queue.queue))
             if(list(self.final_queue.queue)[length-1] == block_id):
                 status = 'COMPLETED'
-            self.update_job_status(block_id,output,status)
+
+            self.update_job_status(block_id,status,stdout_msg,stdout_type)
+
             print('Status: {}'.format(status))
             
 
-    def update_job_status(self,block_id,msg,status):
+    def update_job_status(self,block_id,status,stdout_msg,stdout_type=None):
         '''
         Update the Job table after each block execution
         '''
@@ -176,14 +185,21 @@ class Graph:
         for block in workflow['executionStatus']:
             if(block['id'] == block_id):
                 if(status != 'FAILED'):
-                    block['output'] = {
-                        'type': 'STRING',
-                        'value': str(msg)
-                    }
+                    if(stdout_type == 'GRAPH'):
+                        block['output'] = {
+                            'type': stdout_type,
+                            'value': {'filename':str(stdout_msg)+'.png'}
+                        }
+                    elif(stdout_type == 'STRING'):
+                        block['output'] = {
+                            'type': stdout_type,
+                            'value': str(stdout_msg)
+                        }
+                    
                 block['completed'] = True
                 if(status == 'FAILED'):
                     block['error'] = True
-                    block['stderr'] = str(msg)
+                    block['stderr'] = str(stdout_msg)
                 else:    
                     block['error'] = False
                     block['stderr'] = ""
@@ -193,3 +209,23 @@ class Graph:
             job.end_time = datetime.utcnow()
         job.workflow = workflow
         job.commit()
+
+
+    def stdout_handling(self,stdout):
+        '''
+        stdout can be of three type:
+         - stdout = (stdout_value, 'STRING')
+         - stdout = (None, 'GRAPH')
+         - stdout = None
+        '''
+        if(isinstance(stdout,tuple) and len(stdout)==2):
+            if(stdout[1] == 'GRAPH'):
+                filename = randrange(10000,100000)
+                plt.savefig('{}/.EEGWorkflow/Jobs/{}/{}'.format(os.path.expanduser('~'),self.job_id,filename))
+                return (filename,'GRAPH')
+
+            if(stdout[1] == 'STRING'):
+                output = str(stdout[0])
+                return (output,'STRING')
+        return (None,None)
+            

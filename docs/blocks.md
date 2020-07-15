@@ -161,7 +161,7 @@ class Addition(Block):
         value = self.num1.value + self.num2.value
         self.output.set_value(value)
 ```
-As you can see we have defined all the variables in the **\_\_init__** method and assigned all the variables (except output variables) in ```input_params``` and output variables in ```execute``` method.  
+As you can see we have defined all the variables in the ```__init__``` method and assigned all the variables (except output variables) in ```input_params``` and output variables in ```execute``` method.  
 
 **Note:  
 While uploading custom module, path to import predefined ```Block```, ```BlockInput```, ```BlockOutput```, ```BlockParameter``` and ```ParameterType``` class should be:** 
@@ -212,6 +212,8 @@ As you can see it is similar to the Addition block. Note that BlockParameter nee
 **Note: Value for each ```BlockParameter``` instance variable comes as a string from frontend, hence it always needs to be type-casted. As you can see in the ```input_params``` method of Constant block, we type-casted the ```num``` variable to ```int``` which is a block parameter.**
 
 Each variable input, output, or parameter has ```attribute_type```. The ```arrtibute_type``` is a **string** used by the frontend to prevent connections where types do not match. For example, if block1 needs an input of *list of integers* and block2 outputs just an *integer*, then connecting the output of block2 to the input of block1 should not be allowed. Hence ```atrribute_type``` helps in avoiding type mismatch.  
+
+
 
 ## Create Module
 

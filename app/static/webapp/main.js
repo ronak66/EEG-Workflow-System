@@ -710,9 +710,11 @@ function populateOutputs(data,jobId){
 
                         }
                         else if (outputObj.type==="GRAPH"){
+                            // output+="<br/>"+
+                            //     '<a href="api/workflow/file/'+jobId+"/"+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Graph Data</button></a>'+
+                            //     '<a href="graph.html?graph='+outputObj.value.filename+'" target="_blank"><button class="btn btn-success btn-sm" >Open</button></a>';
                             output+="<br/>"+
-                                '<a href="api/workflow/file/'+jobId+"/"+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Graph Data</button></a>'+
-                                '<a href="graph.html?graph='+outputObj.value.filename+'" target="_blank"><button class="btn btn-success btn-sm" >Open</button></a>';
+                                '<a href="api/workflow/file/'+jobId+"/"+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Open Graph</button></a>';
                         }
                     }
 

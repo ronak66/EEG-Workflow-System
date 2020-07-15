@@ -29,3 +29,4 @@ class Constant(Block):
     def execute(self):
         value = self.num.value
         self.output.set_value(value)
+        return (value,'STRING')

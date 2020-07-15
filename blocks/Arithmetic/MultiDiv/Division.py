@@ -37,3 +37,4 @@ class Division(Block):
     def execute(self):
         value = self.num1.value / self.num2.value
         self.output.set_value(value)
+        return (value,'STRING')
