@@ -160,6 +160,7 @@ class Addition(Block):
     def execute(self):
         value = self.num1.value + self.num2.value
         self.output.set_value(value)
+        return (value,'STRING')
 ```
 As you can see we have defined all the variables in the ```__init__``` method and assigned all the variables (except output variables) in ```input_params``` and output variables in ```execute``` method.  
 
@@ -192,6 +193,7 @@ class Constant(Block):
             name='constant value',
             attribute_type=ParameterType.NUMBER,
             defaultvalue=10
+            # defaultvalue=''
         )
         self.output = BlockOutput(
             name='output',
@@ -206,14 +208,71 @@ class Constant(Block):
     def execute(self):
         value = self.num.value
         self.output.set_value(value)
+        return (value,'STRING')
 ```
 As you can see it is similar to the Addition block. Note that BlockParameter needs to have a default value.
 
-**Note: Value for each ```BlockParameter``` instance variable comes as a string from frontend, hence it always needs to be type-casted. As you can see in the ```input_params``` method of Constant block, we type-casted the ```num``` variable to ```int``` which is a block parameter.**
+**Note: Value for each ```BlockParameter``` instance variable comes as a string from the frontend, hence it always needs to be type-casted. As you can see in the ```input_params``` method of Constant block, we type-casted the ```num``` variable to ```int``` which is a block parameter.**
 
 Each variable input, output, or parameter has ```attribute_type```. The ```arrtibute_type``` is a **string** used by the frontend to prevent connections where types do not match. For example, if block1 needs an input of *list of integers* and block2 outputs just an *integer*, then connecting the output of block2 to the input of block1 should not be allowed. Hence ```atrribute_type``` helps in avoiding type mismatch.  
 
 
+![Stdout Example](assets/blocks/stdout.png)
+Apart from input, output, and parameter, there is something called **stdout**.  
+**stdout** is used to display some output on the block. In the above image, you can see that each block is displaying some output. **Constant** block displays the constant value, **Multiplication** block displays the output after multiplying the two values and **Plot** block outputs a link containing the image of the plotted graph.  
+These outputs are called the **stdout**. This **stdout** is determined from the return value of the ```input_params``` method. In order to set the **stdout** as a ```STRING``` or ```GRAPH``` you need to return a tuple in ```input_params``` method. The tuple must be (value, type) format. It should be one of the two:
+```python 
+- ("[string you want to display]", "STRING")
+- (None, "GRAPH")
+```
+- **Note: Nothing will be displayed if you return anything other than the above two formats.**
+- For type="STRING", check the return format for the **Constant** block shown above.  
+- The value for type="GRAPH" is None because your block should only use matplotlib to plot a graph, and 
+in the ```execute``` method, you need to plot the graph (```plt.plot(...)```). Below you can see the example of the **Plot** block. Check the return type for ```input_params``` method and logic in ```execute``` method.
+
+```python
+from blocks.Block import Block 
+from blocks.BlockInput import BlockInput
+from blocks.BlockParameter import BlockParameter
+from blocks.BlockOutput import BlockOutput
+from blocks.ParameterType import ParameterType
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+class Plot(Block):
+
+    family = 'Graph'
+    name = 'Plot'
+
+    def __init__(self):
+        self.function = BlockParameter(
+            name='function equation',
+            attribute_type=ParameterType.STRING,
+            defaultvalue='x'
+        )
+        self.graph_domain = BlockParameter(
+            name='range',
+            attribute_type=ParameterType.NUMBER,
+            defaultvalue=100
+        )
+
+    def input_params(self,data):
+        self.function.set_value(data['function equation'])
+        self.graph_domain.set_value(int(data['range']))
+
+    def execute(self):
+        x = np.array(range(-self.graph_domain.value,self.graph_domain.value))
+        y = eval(self.function.value)
+        plt.figure()
+        plt.plot(x,y)
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        plt.title('Graph Equation: {}'.format(self.function.value))
+        plt.grid()
+        return (None,'GRAPH')
+        
+```
 
 ## Create Module
 

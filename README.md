@@ -41,7 +41,7 @@ $ sudo apt-get install redis-server
 ```
 **4. Install all the required dependencies**    
 ```
-$ pip3 install requirements.txt
+$ pip3 install -r requirements.txt
 ```
 **5. Run the system**  
 * Run server on one terminal

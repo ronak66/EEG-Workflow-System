@@ -1,8 +1,12 @@
-Flask_SQLAlchemy==2.4.1
 celery==4.4.5
-Flask_Bcrypt==0.7.1
+numpy==1.18.3
+matplotlib==3.1.2
+Flask_SQLAlchemy==2.4.1
 Flask==1.1.1
+Flask_Bcrypt==0.7.1
+Pillow==7.2.0
 PyJWT==1.7.1
 redis==3.5.3
 gunicorn==19.9.0
-psycopg2>=2.7,<2.8 --no-binary psycopg2
+# psycopg2>=2.7,<2.8 --no-binary psycopg2
+psycopg2-binary==2.8.5

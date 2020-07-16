@@ -150,7 +150,7 @@ class Graph:
                     
                     module_blocks[block_type].input_params(input_data)
                     stdout = module_blocks[block_type].execute()
-                    stdout_msg, stdout_type = stdout_handling(stdout)                    
+                    stdout_msg, stdout_type = self.stdout_handling(stdout)                    
                 except:
                     print('Status: FAILED')
                     e = traceback.format_exc()
