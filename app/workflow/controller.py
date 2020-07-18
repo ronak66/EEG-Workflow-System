@@ -9,7 +9,6 @@ from app import celery, app
 from app.user.auth import Auth
 from app.workflow.model import Job
 from app.workflow.Graph import Graph
-from app.workflow.dummy import a, b, c
 
 @Auth.auth_required
 def jar_upload(data,files):
