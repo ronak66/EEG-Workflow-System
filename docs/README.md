@@ -1,7 +1,7 @@
 # Python-Based EEG and Deep learning Workflow Docs
 
 [![Documentation](https://img.shields.io/badge/Github-code-003A70.svg?style=for-the-badge&logo=github)](https://github.com/ronak66/EEG-Workflow-System)
-[![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=research-gate)](https://ieeexplore.ieee.org/document/8941664)
+[![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=internet-archive)](https://ieeexplore.ieee.org/document/8941664)
 [![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)]()
 
 ## Contents of the Documentation

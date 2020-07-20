@@ -1,7 +1,11 @@
+import os
+
 class Block(object):
 
     family = "Default Family"
     name = "Default Name"
+
+    FILE_BASE_PATH = '{}/.EEGWorkflow/Shared'.format(os.path.expanduser('~'))
 
     def __init__(self):
         pass

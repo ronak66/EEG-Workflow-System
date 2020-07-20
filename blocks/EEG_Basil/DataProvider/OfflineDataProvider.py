@@ -1,0 +1,38 @@
+from blocks.Block import Block 
+from blocks.BlockInput import BlockInput
+from blocks.BlockParameter import BlockParameter
+from blocks.BlockOutput import BlockOutput
+from blocks.ParameterType import ParameterType
+
+import os
+import mne
+
+class OfflineDataProvider(Block):
+
+    family = 'DataProvider'
+    name = 'OfflineDataProvider'
+
+    def __init__(self):
+        self.eeg_data = BlockParameter(
+            name='EEG File',
+            attribute_type=ParameterType.FILE,
+            defaultvalue=''
+        )
+        self.output = BlockOutput(
+            name='EEGData',
+            min_cardinality=1,
+            max_cardinality=1,
+            attribute_type=ParameterType.NUMBER_ARRAY
+        )
+
+    def input_params(self,data):
+        path = data['EEG File'].split('/')
+        path = Block.FILE_BASE_PATH + '/' + '/'.join(path[1:])
+        vhdr_path = '.'.join(path.split('.')[:-1]) + '.vhdr'
+        raw =  mne.io.read_raw_brainvision(vhdr_path)
+        self.eeg_data.set_value(raw)
+
+    def execute(self):
+        value = self.eeg_data.value
+        self.output.set_value(value.get_data())
+        return (value.get_data().shape,'STRING')

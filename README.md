@@ -1,7 +1,7 @@
 # EEG-Workflow-System
 
 [![Documentation](https://img.shields.io/badge/Documentation-here-informational.svg?style=for-the-badge&logo=read-the-docs)](https://ronak66.github.io/EEG-Workflow-System)
-[![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=research-gate)](https://ieeexplore.ieee.org/document/8941664)
+[![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=internet-archive)](https://ieeexplore.ieee.org/document/8941664)
 [![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)]()
 
 <!-- ![Google Summer of Code img](https://4.bp.blogspot.com/-AY7eIsmbH0Y/WLRdpe78DJI/AAAAAAAABDU/lsb2XqcmyUsLqYo6yzo9HYMY4vLn3q_OgCLcB/s1600/vertical%2BGSoC%2Blogo.jpg) -->

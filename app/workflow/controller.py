@@ -177,7 +177,10 @@ def execute_scheduled_job(workflow,job_id):
         module_blocks_mapping = {}
         for module in modules:
             mapping = importlib.import_module('blocks.{}'.format(module))
-            module_blocks_mapping[module] = mapping.string_classobject_mapping
+            try:
+                module_blocks_mapping[module] = mapping.string_classobject_mapping
+            except:
+                continue
         graph = Graph(workflow,module_blocks_mapping,job_id)
         graph.bfs()
         graph.execute_workflow()
