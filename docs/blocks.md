@@ -220,15 +220,15 @@ Each variable input, output, or parameter has ```attribute_type```. The ```arrti
 ![Stdout Example](assets/blocks/stdout.png)
 Apart from input, output, and parameter, there is something called **stdout**.  
 **stdout** is used to display some output on the block. In the above image, you can see that each block is displaying some output. **Constant** block displays the constant value, **Multiplication** block displays the output after multiplying the two values and **Plot** block outputs a link containing the image of the plotted graph.  
-These outputs are called the **stdout**. This **stdout** is determined from the return value of the ```input_params``` method. In order to set the **stdout** as a ```STRING``` or ```GRAPH``` you need to return a tuple in ```input_params``` method. The tuple must be (value, type) format. It should be one of the two:
+These outputs are called the **stdout**. This **stdout** is determined from the return value of the ```execute``` method. In order to set the **stdout** as a ```STRING``` or ```GRAPH``` you need to return a tuple in ```execute``` method. The tuple must be (value, type) format. It should be one of the two:
 ```python 
 - ("[string you want to display]", "STRING")
 - (None, "GRAPH")
 ```
 - **Note: Nothing will be displayed if you return anything other than the above two formats.**
 - For type="STRING", check the return format for the **Constant** block shown above.  
-- The value for type="GRAPH" is None because your block should only use matplotlib to plot a graph, and 
-in the ```execute``` method, you need to plot the graph (```plt.plot(...)```). Below you can see the example of the **Plot** block. Check the return type for ```input_params``` method and logic in ```execute``` method.
+- The value for type="GRAPH" is ```None``` because your block should only use matplotlib to plot a graph, and 
+in the ```execute``` method, you need to plot the graph (```plt.plot(...)```). Below you can see the example of the **Plot** block. Check the return type for ```input_params``` method and logic in the ```execute``` method.
 
 ```python
 from blocks.Block import Block 

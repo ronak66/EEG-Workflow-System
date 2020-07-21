@@ -2,7 +2,7 @@
 
 # User Details
 
-Reset a new password for user account, i.e change password.
+Get user detials
 
 **URL** : `/api/users/details`
 

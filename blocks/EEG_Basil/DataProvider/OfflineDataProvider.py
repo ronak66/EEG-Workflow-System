@@ -1,3 +1,8 @@
+'''================================
+Title: Data provider Block
+Author: Ronak Doshi (ronak66)
+================================'''
+
 from blocks.Block import Block 
 from blocks.BlockInput import BlockInput
 from blocks.BlockParameter import BlockParameter
@@ -16,9 +21,10 @@ class OfflineDataProvider(Block):
         self.eeg_data = BlockParameter(
             name='EEG File',
             attribute_type=ParameterType.FILE,
-            defaultvalue=''
+            defaultvalue='',
+            description='Select only the ".eeg" file, but folder must contain ".vhdr" and ".vmrk" files'
         )
-        self.output = BlockOutput(
+        self.eeg_data_output = BlockOutput(
             name='EEGData',
             min_cardinality=1,
             max_cardinality=1,
@@ -34,5 +40,5 @@ class OfflineDataProvider(Block):
 
     def execute(self):
         value = self.eeg_data.value
-        self.output.set_value(value.get_data())
+        self.eeg_data_output.set_value(value.get_data())
         return (value.get_data().shape,'STRING')

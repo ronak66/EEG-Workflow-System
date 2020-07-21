@@ -120,7 +120,7 @@ def generate_attribute_list(attributes):
                 attribute_details["attrs"] = "output"
             elif(attribute.__class__.__name__ == 'BlockParameter'):
                 attribute_details["defaultValue"] = str(attribute.value)
-                attribute_details["description"] = ""
+                attribute_details["description"] = str(attribute.description)
                 attribute_details["attrs"] = "editable"
             attribute_list.append(attribute_details)
         return attribute_list 
