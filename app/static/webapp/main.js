@@ -302,6 +302,7 @@ var contex_menu = {
             // If you want to add an extra field for the FormData
             data.append("workflow", JSON.stringify(blocks.export()));
             data.append("email", $.cookie("email"));
+            console.log(data);
 
             $.ajax({
                 type: "POST",

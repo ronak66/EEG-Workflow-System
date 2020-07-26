@@ -162,7 +162,7 @@ class Graph:
                     self.update_job_status(block_id,'FAILED',str(e))
                     return str(e)
 
-
+            # Assigning Output
             output = {}
             for _, attr in vars(module_blocks[block_type]).items():
                 if(attr.__class__.__name__ ==  'BlockOutput'):

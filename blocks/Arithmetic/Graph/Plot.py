@@ -31,7 +31,7 @@ class Plot(Block):
     def execute(self):
         x = np.array(range(-self.graph_domain.value,self.graph_domain.value))
         y = eval(self.function.value)
-        plt.figure()
+        plt.figure(figsize=(20,10))
         plt.plot(x,y)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')

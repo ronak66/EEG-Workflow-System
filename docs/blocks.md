@@ -228,7 +228,7 @@ These outputs are called the **stdout**. This **stdout** is determined from the 
 - **Note: Nothing will be displayed if you return anything other than the above two formats.**
 - For type="STRING", check the return format for the **Constant** block shown above.  
 - The value for type="GRAPH" is ```None``` because your block should only use matplotlib to plot a graph, and 
-in the ```execute``` method, you need to plot the graph (```plt.plot(...)```). Below you can see the example of the **Plot** block. Check the return type for ```input_params``` method and logic in the ```execute``` method.
+in the ```execute``` method, you need to plot the graph (```plt.plot(...)```). Below you can see the example of the **Plot** block. Check the return type and logic of the ```execute``` method.
 
 ```python
 from blocks.Block import Block 
@@ -285,14 +285,17 @@ Note: For a module, always follow a proper directory structure of the family. Ta
    ├── AddSub
    │   ├── __init__.py
    │   ├── Addition.py
-   │   ├── Subraction.py
+   │   └── Subraction.py
    ├── MultiDiv
    │   ├── __init__.py
    │   ├── Multiplication.py
-   │   ├── Division.py
+   │   └── Division.py
    ├── Constant
    │   ├── __init__.py
-   │   ├── Constant.py
+   │   └── Constant.py
+   ├── Graph
+   │   ├── __init__.py
+   │   └── Plot.py
    └── __init__.py
 ```
 
