@@ -3,6 +3,7 @@ import cgi
 import json
 from flask import Blueprint, request, Response, make_response, jsonify, send_file
 
+from app import FILE_BASE_PATH
 from app.connector.elFinder import connector
 # from app.connector.dummy import a
 
@@ -19,7 +20,7 @@ def elfinder_connector():
 		# 'URL': 'http://mydomain.tld/path/to/files' # can be absolute or relative
 		# 'root': '/home/ronak/.EEGWORKFLOW',
 		# 'root': '/home/ronak/.workflow_designer_files/workFiles/Shared',
-		'root': '{}/.EEGWorkflow/Shared'.format(os.path.expanduser('~')),
+		'root': '{}/Shared'.format(FILE_BASE_PATH),
 		# 'URL': '.',
 		## other options
 		'debug': True
@@ -53,7 +54,10 @@ def elfinder_connector():
 				httpRequest['upload[]'] = {
 					file.filename: file
 				}
-			httpRequest['targets[]'] = list(httpRequest['targets[]'])
+			try:
+				httpRequest['targets[]'] = list(httpRequest['targets[]'])
+			except:
+				continue
 	elif(request.args):
 		httpRequest = dict(request.args)
 	elf = connector(opts)
@@ -69,5 +73,5 @@ def elfinder_connector():
 
 @file_managment.route("/api/workflow/file/<job_id>/<filename>", methods=["GET"])
 def get_file(job_id,filename):
-	path = '{}/.EEGWorkflow/Jobs/{}/{}'.format(os.path.expanduser('~'),job_id,filename)
+	path = '{}/Jobs/{}/{}'.format(FILE_BASE_PATH,job_id,filename)
 	return send_file(path)

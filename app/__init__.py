@@ -26,6 +26,8 @@ bcrypt = Bcrypt()
 # celery worker -A app.celery --loglevel=info
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 
+FILE_BASE_PATH = '{}/.EEGWorkflow'.format(os.path.expanduser('~'))
+
 from app.home.routes import home
 app.register_blueprint(home)
 

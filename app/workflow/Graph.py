@@ -11,7 +11,7 @@ from random import randrange
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-
+from app import FILE_BASE_PATH
 from app.workflow.model import Job
 
 class Graph:
@@ -226,7 +226,7 @@ class Graph:
         if(isinstance(stdout,tuple) and len(stdout)==2):
             if(stdout[1] == 'GRAPH'):
                 filename = randrange(10000,100000)
-                plt.savefig('{}/.EEGWorkflow/Jobs/{}/{}'.format(os.path.expanduser('~'),self.job_id,filename))
+                plt.savefig('{}/Jobs/{}/{}'.format(FILE_BASE_PATH,self.job_id,filename))
                 return (filename,'GRAPH')
 
             if(stdout[1] == 'STRING'):

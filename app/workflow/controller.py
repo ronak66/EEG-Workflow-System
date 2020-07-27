@@ -5,7 +5,7 @@ import zipfile
 import importlib
 from flask import Response, make_response, jsonify, g
 
-from app import celery, app
+from app import celery, app, FILE_BASE_PATH
 from app.user.auth import Auth
 from app.workflow.model import Job
 from app.workflow.Graph import Graph
@@ -149,7 +149,7 @@ def schedule_new_job(data):
         )
         new_job.save()
 
-        path = '{}/.EEGWorkflow/Jobs/{}'.format(os.path.expanduser('~'),new_job.id)
+        path = '{}/Jobs/{}'.format(FILE_BASE_PATH,new_job.id)
         os.mkdir(path) 
 
         execute_scheduled_job.delay(data,new_job.id)
