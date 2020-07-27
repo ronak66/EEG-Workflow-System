@@ -33,7 +33,7 @@ class EEGPlot(Block):
         channels = value.ch_names   
 
         time = value.times
-        plt.figure(figsize=(18,8)) 
+        plt.figure(figsize=(18,7.5)) 
         data = value.get_data()
         for i in range(data.shape[0]):
             plt.plot(time,np.array(data[i:i+1,:]).flatten())

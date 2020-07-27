@@ -6,10 +6,11 @@
 
 ## Contents of the Documentation
 
-1. [APIs Documentation](server-api.md)
-2. [How to Create Blocks](blocks.md)
-3. [Workflow Execution Algorithm](workflow.md)
-4. [Contribution Guide](contribute.md)
+1. [EEG Blocks Documentation](eeg-blocks.md)
+2. [APIs Documentation](server-api.md)
+3. [How to Create Blocks](blocks.md)
+4. [Workflow Execution Algorithm](workflow.md)
+5. [Contribution Guide](contribute.md)
 
 ## About
 
