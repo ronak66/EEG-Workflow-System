@@ -1,5 +1,5 @@
 '''================================
-Title: EEG Plot Block
+Title: Event and Ids Block
 Author: Ronak Doshi (ronak66)
 ================================'''
 
@@ -9,13 +9,15 @@ from blocks.BlockParameter import BlockParameter
 from blocks.BlockOutput import BlockOutput
 from blocks.ParameterType import ParameterType
 
+import mne
 import numpy as np
 import matplotlib.pyplot as plt
 
-class EEGPlot(Block):
+class EventAndIds(Block):
 
-    family = 'Visualization'
-    name = 'EEGPlot'
+    family = 'PreProcessing'
+    name = 'EventAndIds'
+    description = "Dictionary of 'Name' : 'Id' pair"
 
     def __init__(self):
         self.eeg_data = BlockInput(
@@ -29,19 +31,7 @@ class EEGPlot(Block):
         self.eeg_data.set_value(data['EEGData'])
 
     def execute(self):
-        value = self.eeg_data.value
-        channels = value.ch_names   
-
-        time = value.times
-        plt.figure(figsize=(18,7)) 
-        data = value.get_data()
-        for i in range(data.shape[0]):
-            plt.plot(time,np.array(data[i:i+1,:]).flatten())
-            print(channels[i])
-        plt.legend(channels)
-        plt.xlabel('Time (s)')
-        plt.ylabel('EEG Amplitude')
-        plt.title('EEG Data of channel/s: {}'.format(value.ch_names))
-        plt.grid()
-        return (None,'GRAPH')
+        raw = self.eeg_data.value
+        events, event_ids = mne.events_from_annotations(raw)
+        return (event_ids,'STRING')
         

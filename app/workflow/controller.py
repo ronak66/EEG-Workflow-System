@@ -82,7 +82,7 @@ def tree_initialization():
                     "module": "{}.zip:{}".format(module,module),
                     # "module": module,
                     "name": key,
-                    "description": "",
+                    "description": value.description,
                     "family": value.family,
                     "fields": generate_attribute_list(vars(value))       
                 }

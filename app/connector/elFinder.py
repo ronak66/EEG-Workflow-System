@@ -23,7 +23,7 @@ class connector():
         'rootAlias': 'Home',
         'dotFiles': False,
         'dirSize': True,
-        'fileMode': 999,
+        'fileMode': 777,
         'dirMode': 755,
         'imgLib': 'auto',
         'tmbDir': '.tmb',

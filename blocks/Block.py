@@ -4,8 +4,9 @@ class Block(object):
 
     family = "Default Family"
     name = "Default Name"
+    description = ""
 
-    FILE_BASE_PATH = '{}/EEGWorkflow/Shared'.format(os.path.expanduser('~'))
+    FILE_BASE_PATH = '{}/.EEGWorkflow/Shared'.format(os.path.expanduser('~'))
 
     def __init__(self):
         pass
