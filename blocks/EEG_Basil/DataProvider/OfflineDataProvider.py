@@ -28,7 +28,7 @@ class OfflineDataProvider(Block):
             name='EEGData',
             min_cardinality=1,
             max_cardinality=100,
-            attribute_type=ParameterType.NUMBER_ARRAY
+            attribute_type=ParameterType.EEGDATA
         )
 
     def input_params(self,data):

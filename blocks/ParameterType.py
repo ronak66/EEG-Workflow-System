@@ -9,3 +9,7 @@ class ParameterType:
     FILE_ARRAY = "FILE[]"
     BOOLEAN = "BOOLEAN"
     OBJECT = "OBJECT"
+
+    EEGDATA = "EEGData"
+    EPOCHS = "EPOCHS"
+    FEATUREVECTOR = "FeatureVector"

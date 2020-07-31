@@ -22,7 +22,7 @@ class EpochExtraction(Block):
             name='EEGData',
             min_cardinality=1,
             max_cardinality=1,
-            attribute_type=ParameterType.NUMBER_ARRAY
+            attribute_type=ParameterType.EEGDATA
         )
         self.pre_stimulus_onset = BlockParameter(
             name='PreStimulus onset',
@@ -55,10 +55,10 @@ class EpochExtraction(Block):
             description='None means all the events'
         )
         self.eeg_data_output = BlockOutput(
-            name='EEGData',
+            name='Epochs',
             min_cardinality=1,
             max_cardinality=100,
-            attribute_type=ParameterType.NUMBER_ARRAY
+            attribute_type=ParameterType.EPOCHS
         )
 
     def input_params(self,data):
