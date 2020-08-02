@@ -13,3 +13,4 @@ class ParameterType:
     EEGDATA = "EEGData"
     EPOCHS = "EPOCHS"
     FEATUREVECTOR = "FeatureVector"
+    MODEL = "Model"

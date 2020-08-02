@@ -1,5 +1,5 @@
 '''================================
-Title: Epoch Extraction Block
+Title: Wavelet Transform Block
 Author: Ronak Doshi (ronak66)
 ================================'''
 
@@ -26,7 +26,7 @@ class WaveletTransform(Block):
             max_cardinality=1,
             attribute_type=ParameterType.EPOCHS
         )
-        self.eeg_data_output = BlockOutput(
+        self.feature_vector = BlockOutput(
             name='FeatureVector',
             min_cardinality=1,
             max_cardinality=100,
@@ -40,25 +40,39 @@ class WaveletTransform(Block):
         feature_list = []
         epochs = self.epochs.value
         event_ids = epochs.event_id
-        for event_name,event_id in enumerate(event_ids):
+
+        event_id_class_mp = self.event_id_to_class(event_ids)
+
+        for event_name,event_id in event_ids.items():
             event_epochs = epochs[event_name].get_data()
             for epoch in event_epochs:
-                feature_vector = self.extractFeatures(epoch,event_id)
+                feature_vector = self.extractFeatures(epoch,event_id_class_mp[event_id])
                 feature_list.append(feature_vector)
 
-        stdout_string = 'Total datapoints: {}\n No. of Features: {}'.format(
+        self.feature_vector.set_value(feature_list)
+
+        stdout_string = '<br>Total datapoints: {} <br> No. of Features: {}'.format(
             len(feature_list),feature_list[0].features.shape
         )
 
         return (stdout_string,'STRING')
 
+    def event_id_to_class(self,event_ids):
+        event_id_class_mp = {}
+        i=0
+        for event_name,event_id in event_ids.items():
+            if(event_id not in event_id_class_mp.keys()):
+                event_id_class_mp[event_id] = i
+                i+=1
+        return event_id_class_mp
 
     def extractFeatures(self,epoch,event_id):
         features = np.array([])
         for channel_data in epoch:
             coff_approx, coff_detail = pywt.dwt(channel_data,'db1')
             features = np.hstack([features,coff_detail])
-        feature_vector = FeatureVector(features,event_id)
+        norm = np.linalg.norm(features)
+        feature_vector = FeatureVector(features/norm,event_id)
         return feature_vector
 
 class FeatureVector:
