@@ -22,7 +22,7 @@ class EEGPlot(Block):
             name='EEGData',
             min_cardinality=1,
             max_cardinality=1,
-            attribute_type=ParameterType.NUMBER_ARRAY
+            attribute_type=ParameterType.EEGDATA
         )
 
     def input_params(self,data):

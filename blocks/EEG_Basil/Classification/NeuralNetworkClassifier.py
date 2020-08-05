@@ -89,14 +89,17 @@ class NeuralNetworkClassifier(Block):
             Y.append(datapoint.class_id)
         
         X_train, X_test, y_train, y_test = train_test_split(
-            np.array(X), np.array(Y),  
+            np.array(X), np.array(Y), 
+            test_size=self.test_size.value, 
             random_state=42
         )
+        self.number_of_training_sample = X_train.shape
+
         y_train = keras.utils.to_categorical(y_train,self.classes.value)
         y_test = keras.utils.to_categorical(y_test,self.classes.value)
 
-        X_train = X_test = np.array(X)
-        y_test = y_train = keras.utils.to_categorical(np.array(Y),self.classes.value)
+        # X_train = X_test = np.array(X)
+        # y_test = y_train = keras.utils.to_categorical(np.array(Y),self.classes.value)
 
         history = model.fit(
 	    	X_train, y_train,
@@ -108,7 +111,8 @@ class NeuralNetworkClassifier(Block):
 
         validation_acc = history.history['val_accuracy'][-1]
         training_acc = history.history['accuracy'][-1]
-        stdout = "<br>Training Accuracy: {}<br>Validation Accuracy: {}".format(training_acc,validation_acc)
+        stdout = "<br>Training Accuracy: {}<br>Validation Accuracy: {}<br>No. of Training Samples: {}".format(
+            training_acc,validation_acc,self.number_of_training_sample[0])
 
         return (stdout,'STRING')
     

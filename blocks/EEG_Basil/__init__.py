@@ -8,6 +8,7 @@ from .PreProcessing.Filter import Filter
 
 from .FeatureExtraction.WaveletTransform import WaveletTransform
 
+from .Classification.SaveModel import SaveModel
 from .Classification.NeuralNetworkLayer import NeuralNetworkLayer
 from .Classification.NeuralNetworkClassifier import NeuralNetworkClassifier
 
@@ -21,6 +22,7 @@ string_classobject_mapping = {
     EpochExtraction.name: EpochExtraction(),
     Filter.name: Filter(),
     WaveletTransform.name: WaveletTransform(),
+    SaveModel.name: SaveModel(),
     NeuralNetworkLayer.name: NeuralNetworkLayer(),
     NeuralNetworkClassifier.name: NeuralNetworkClassifier(),
     EEGPlot.name: EEGPlot()

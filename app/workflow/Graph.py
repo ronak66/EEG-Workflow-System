@@ -190,10 +190,10 @@ class Graph:
         for block in workflow['executionStatus']:
             if(block['id'] == block_id):
                 if(status != 'FAILED'):
-                    if(stdout_type == 'GRAPH'):
+                    if(stdout_type == 'GRAPH' or stdout_type == 'FILE' ):
                         block['output'] = {
                             'type': stdout_type,
-                            'value': {'filename':str(stdout_msg)+'.png'}
+                            'value': {'filename':str(stdout_msg)}
                         }
                     elif(stdout_type == 'STRING'):
                         block['output'] = {
@@ -225,12 +225,19 @@ class Graph:
         '''
         if(isinstance(stdout,tuple) and len(stdout)==2):
             if(stdout[1] == 'GRAPH'):
-                filename = randrange(10000,100000)
+                filename = '{}.png'.format(randrange(10000,100000))
                 plt.savefig('{}/Jobs/{}/{}'.format(FILE_BASE_PATH,self.job_id,filename))
                 return (filename,'GRAPH')
 
             if(stdout[1] == 'STRING'):
                 output = str(stdout[0])
                 return (output,'STRING')
+
+            if(stdout[1] == 'MODEL'):
+                val = randrange(10000,100000)
+                filename = 'model{}.h5'.format(val)
+                model = stdout[0]
+                model.save('{}/Jobs/{}/{}'.format(FILE_BASE_PATH,self.job_id,filename))
+                return (filename,'FILE')
         return (None,None)
             

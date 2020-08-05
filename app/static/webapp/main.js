@@ -701,7 +701,7 @@ function populateOutputs(data,jobId){
                             output+=outputObj.value;
                         }
                         else if (outputObj.type==="FILE"){
-                            output+="<a href=\"api/workflow/file/"+jobId+"/"+outputObj.value.filename+"\">"+outputObj.value.title+"</a>";
+                            output+="<a href=\"api/workflow/file/"+jobId+"/"+outputObj.value.filename+"\">"+outputObj.value.filename+"</a>";
                             // output+='<a href="api/workflow/file/'+outputObj.value.filename+'"><button class="btn btn-success btn-sm" >Download Output</button></a>';
                         }
                         else if (outputObj.type==="TABLE"){
