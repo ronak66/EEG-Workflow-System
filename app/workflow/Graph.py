@@ -226,7 +226,10 @@ class Graph:
         if(isinstance(stdout,tuple) and len(stdout)==2):
             if(stdout[1] == 'GRAPH'):
                 filename = '{}.png'.format(randrange(10000,100000))
-                plt.savefig('{}/Jobs/{}/{}'.format(FILE_BASE_PATH,self.job_id,filename))
+                if(stdout[0]==None):
+                    plt.savefig('{}/Jobs/{}/{}'.format(FILE_BASE_PATH,self.job_id,filename))
+                else:
+                    stdout[0].savefig('{}/Jobs/{}/{}'.format(FILE_BASE_PATH,self.job_id,filename))
                 return (filename,'GRAPH')
 
             if(stdout[1] == 'STRING'):
