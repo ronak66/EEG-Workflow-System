@@ -5,6 +5,7 @@ from .PreProcessing.ChannelNames import ChannelNames
 from .PreProcessing.EventAndIds import EventAndIds
 from .PreProcessing.EpochExtraction import EpochExtraction
 from .PreProcessing.Filter import Filter
+from .PreProcessing.EpochAveraging import EpochAveraging
 
 from .FeatureExtraction.WaveletTransform import WaveletTransform
 
@@ -21,6 +22,7 @@ string_classobject_mapping = {
     ChannelNames.name: ChannelNames(),
     EventAndIds.name: EventAndIds(),
     EpochExtraction.name: EpochExtraction(),
+    EpochAveraging.name: EpochAveraging(),
     Filter.name: Filter(),
     WaveletTransform.name: WaveletTransform(),
     SaveModel.name: SaveModel(),

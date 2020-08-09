@@ -1,5 +1,5 @@
 '''================================
-Title: Epoch Plot Block
+Title: Epoch Extraction Block
 Author: Ronak Doshi (ronak66)
 ================================'''
 
@@ -9,13 +9,13 @@ from blocks.BlockParameter import BlockParameter
 from blocks.BlockOutput import BlockOutput
 from blocks.ParameterType import ParameterType
 
-import numpy as np
-import matplotlib.pyplot as plt
+import os
+import mne
 
-class EpochPlot(Block):
+class EpochAveraging(Block):
 
-    family = 'Visualization'
-    name = 'EpochPlot'
+    family = 'PreProcessing'
+    name = 'EpochAveraging'
 
     def __init__(self):
         self.epochs = BlockInput(
@@ -24,18 +24,17 @@ class EpochPlot(Block):
             max_cardinality=1,
             attribute_type=ParameterType.EPOCHS
         )
+        self.epochs_output = BlockOutput(
+            name='Epochs',
+            min_cardinality=1,
+            max_cardinality=100,
+            attribute_type=ParameterType.EPOCHS
+        )
 
     def input_params(self,data):
         self.epochs.set_value(data['Epochs'])
 
     def execute(self):
-        epochs = self.epochs.value
-        if(epochs.__class__.__name__ == 'Epochs'):
-            plot = epochs.plot_image(picks=None, cmap='interactive', sigma=1., combine='mean', show=False)
-            return (plot[0],'GRAPH')
-        elif(epochs.__class__.__name__ == 'EvokedArray'):
-            plot = epochs.plot_image(picks=None, cmap='interactive', show=False)
-            return (plot,'GRAPH')
+        avgepoch = self.epochs.value.average()
+        self.epochs_output.set_value(avgepoch)
         return None
-        
-        
