@@ -46,7 +46,8 @@ class WaveletTransform(Block):
         for event_name,event_id in event_ids.items():
             event_epochs = epochs[event_name].get_data()
             for epoch in event_epochs:
-                feature_vector = self.extractFeatures(epoch,event_id_class_mp[event_id])
+                # feature_vector = self.extractFeatures(epoch,event_id_class_mp[event_id])
+                feature_vector = self.extractFeatures(epoch,event_id)
                 feature_list.append(feature_vector)
 
         self.feature_vector.set_value(feature_list)
@@ -70,7 +71,7 @@ class WaveletTransform(Block):
         features = np.array([])
         for channel_data in epoch:
             coff_approx, coff_detail = pywt.dwt(channel_data,'db1')
-            features = np.hstack([features,coff_detail])
+            features = np.hstack([features,coff_approx])
         norm = np.linalg.norm(features)
         feature_vector = FeatureVector(features/norm,event_id)
         return feature_vector

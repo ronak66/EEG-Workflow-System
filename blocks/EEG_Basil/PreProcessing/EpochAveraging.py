@@ -1,5 +1,5 @@
 '''================================
-Title: Epoch Extraction Block
+Title: Epoch Averaging Block
 Author: Ronak Doshi (ronak66)
 ================================'''
 

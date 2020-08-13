@@ -8,6 +8,7 @@ from .PreProcessing.Filter import Filter
 from .PreProcessing.EpochAveraging import EpochAveraging
 
 from .FeatureExtraction.WaveletTransform import WaveletTransform
+from .FeatureExtraction.FeatureLabeling import FeatureLabeling
 
 from .Classification.SaveModel import SaveModel
 from .Classification.NeuralNetworkLayer import NeuralNetworkLayer
@@ -25,6 +26,7 @@ string_classobject_mapping = {
     EpochAveraging.name: EpochAveraging(),
     Filter.name: Filter(),
     WaveletTransform.name: WaveletTransform(),
+    FeatureLabeling.name: FeatureLabeling(),
     SaveModel.name: SaveModel(),
     NeuralNetworkLayer.name: NeuralNetworkLayer(),
     NeuralNetworkClassifier.name: NeuralNetworkClassifier(),

@@ -14,7 +14,7 @@ import mne
 import pywt
 import keras
 import numpy as np
-from keras.layers import Dense
+from keras.layers import Dense, Dropout
 from keras.models import Sequential
 
 class NeuralNetworkLayer(Block):
@@ -41,6 +41,12 @@ class NeuralNetworkLayer(Block):
             defaultvalue='relu',
             description="Either, 'sigmoid', 'relu', 'softmax', 'elu', 'leaky-relu', 'selu' or 'gelu'"
         )
+        self.dropout = BlockParameter(
+            name='Dropout',
+            attribute_type=ParameterType.STRING,
+            defaultvalue='0',
+            description="Fraction of the input units to drop"
+        )
         self.model_out = BlockOutput(
             name='Model',
             min_cardinality=1,
@@ -56,6 +62,7 @@ class NeuralNetworkLayer(Block):
             self.model.set_value(data['Model'])
         self.units.set_value(int(data['Number of Units']))
         self.activation.set_value(data['Activation Function'])
+        self.dropout.set_value(float(data['Dropout']))
         
 
     def execute(self):
@@ -64,6 +71,7 @@ class NeuralNetworkLayer(Block):
         else:
             model = self.model.value
         model.add(Dense(self.units.value, activation=self.activation.value))
+        model.add(Dropout(self.dropout.value))
         self.model_out.set_value(model)
 
         return None
