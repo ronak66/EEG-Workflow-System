@@ -169,3 +169,78 @@ Output: FeatureVector
         <img src="assets/EEG_blocks/feature/label2.png" width="300" height="150"/>
     </div>
 </div>
+
+## Classification
+
+### Neural Network Layer
+Neural network layer block as the name suggest is the block defining a layer in the entire dense neural network.
+```
+Input: Model
+Parameter: Number of Units, Activation Function, Dropout
+Output: Model
+```
+<div id="container" style="white-space:nowrap">
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/classification/layer.png" width="300" height="150"/>
+    </div>
+</div>
+
+### Neural Network Classifier
+Neural network classifier block takes in the layers and the feature vector in order to perform classification. Feature vector are considered as independent input and feeded to the dense layers to perform appropriate classification using labels assigned to each feature vector. Validation and trainig accuracy is displayed on the block.
+```
+Input: FeatureVector, Model
+Parameter: Optimizer, Test Size, Number of Epochs, Number of classes
+Output: Model
+```
+<div id="container" style="white-space:nowrap">
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/classification/class.png" width="600" height="300"/>
+    </div>
+</div>
+
+### Save Model
+Save model block creates a model file which can be downloaded for future use.
+```
+Input: Model
+Parameter: <No Parameter>
+Output: <No Output>
+```
+<div id="container" style="white-space:nowrap">
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/classification/save.png" width="500" height="200"/>
+    </div>
+</div>
+
+## Visualization
+
+### EEG Plot
+As the name suggest it's a block that will plot all the selected channels of the EEG Data.
+```
+Input: EEGData
+Parameter: <No Parameter>
+Output: <No Output>
+```
+<div id="container" style="white-space:nowrap">
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/visualization/eeg1.png" width="400" height="200"/>
+    </div>
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/visualization/eeg2.png" width="500" height="200"/>
+    </div>
+</div>
+
+### Epoch Plot
+Epoch plot block will plot the signal obtained after averaging all the epochs.
+```
+Input: Epochs
+Parameter: <No Parameter>
+Output: <No Output>
+```
+<div id="container" style="white-space:nowrap">
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/visualization/epoch2.png" width="400" height="200"/>
+    </div>
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/visualization/epoch1.png" width="300" height="200"/>
+    </div>
+</div>
