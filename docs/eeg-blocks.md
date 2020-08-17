@@ -136,3 +136,36 @@ Output: <No Output>
         <img src="assets/EEG_blocks/preprocessing/event.png" width="600" height="250"/>
     </div>
 </div>
+
+## Feature Extraction
+
+### Wavelet Transform
+Wavelet transform block uses discrete wavelet transform (DWT) for extracting features from EEG signal. DWT is used to decompose a filtered EEG signal into its frequency components and the statistical feature of the DWT coefficient are computed in time domain.
+```
+Input: Epochs
+Parameter: <No Parameter>
+Output: FeatureVector
+```
+
+<div id="container" style="white-space:nowrap">
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/feature/wavelet.png" width="300" height="100"/>
+    </div>
+</div>
+
+### Feature Labeling
+Feature labeling block is to label the feature vectors in order to feed it to a neural network classifier. The block maps event ids to a specific class. You can combine mutiple event ids to same class and can also discard features corresponding to an event id.
+```
+Input: FeatureVector
+Parameter: <List of event ids>
+Output: FeatureVector
+```
+
+<div id="container" style="white-space:nowrap">
+    <div id="image" style="display:inline;" >
+        <img src="assets/EEG_blocks/feature/label1.png" width="350" height="270"/>
+    </div>
+    <div id="image" style="display:inline;">
+        <img src="assets/EEG_blocks/feature/label2.png" width="300" height="150"/>
+    </div>
+</div>
