@@ -1,5 +1,5 @@
 '''================================
-Title: Execution workflow algorithm
+Title: Workflow Execution Algorithm
 Author: Ronak Doshi (ronak66)
 ================================'''
 

@@ -234,7 +234,7 @@ These outputs are called the **stdout**. This **stdout** is determined from the 
 ```python 
 - ("[string you want to display]", "STRING")
 - (None, "GRAPH")
-- ("<Keras model objects>","Model")
+- ("<Keras model Object>","Model")
 ```
 - **Note: Nothing will be displayed if you return anything other than the above two formats.**
 - For type="STRING", check the return format for the **Constant** block shown above.  

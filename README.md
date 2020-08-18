@@ -47,7 +47,11 @@ $ sudo apt-get install redis-server
 ```
 $ pip3 install -r requirements.txt
 ```
-**5. Run the system**  
+**5. Setup Database**
+```
+$ python3 manage.py db upgrade
+```
+**6. Run the system**  
 * Run server on one terminal
 ```
 $ python3 server.py
