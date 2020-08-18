@@ -22,6 +22,10 @@
 
 - A web application enables importing projects (custom blocks) which user can then use a drag-and-drop interface to create workflows.
 
+## EEG Workflow Example
+
+![EEG Workflow Example](assets/EEG_blocks/eeg_workflow.png)
+
 ## What Can You Do
 
 ### Create Workflows 

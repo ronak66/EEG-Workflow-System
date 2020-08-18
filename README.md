@@ -6,6 +6,8 @@
 
 <!-- ![Google Summer of Code img](https://4.bp.blogspot.com/-AY7eIsmbH0Y/WLRdpe78DJI/AAAAAAAABDU/lsb2XqcmyUsLqYo6yzo9HYMY4vLn3q_OgCLcB/s1600/vertical%2BGSoC%2Blogo.jpg) -->
 
+<!-- ![EEG Workflow Example](docs/assets/EEG_blocks/eeg_workflow.png) -->
+
 ## Overview
  - This project aims at building an easy to use graphical interface that can streamline the configuration of the parameters
  controlling individual processing sub-routines and thus make it easy to design complicated data flow and execute them for EEG signal processing and classification.  
