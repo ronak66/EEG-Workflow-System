@@ -30,6 +30,9 @@ class Block(object):
 
     family = "Default Family"
     name = "Default Name"
+    description = ""
+
+    FILE_BASE_PATH = '{}/.EEGWorkflow/Shared'.format(os.path.expanduser('~'))
 
     def __init__(self):
         pass
@@ -39,6 +42,7 @@ class Block(object):
 
     def execute(self):
         pass
+
 ```
 ```python
 class BlockInput:
@@ -75,12 +79,13 @@ class BlockOutput:
 ```python
 class BlockParameter:
 
-    def __init__(self, name:str, attribute_type:str, defaultvalue=None):
+    def __init__(self, name:str, attribute_type:str, defaultvalue=None, description=''):
         if not (isinstance(name,str) and isinstance(attribute_type,str)):
             raise TypeError("Incorrect parameter type")
         self.name = name
         self.value = defaultvalue
         self.attribute_type = attribute_type
+        self.description = str(description)
 
     def set_value(self,value):
         self.value = value
@@ -97,6 +102,11 @@ class ParameterType:
     FILE_ARRAY = "FILE[]"
     BOOLEAN = "BOOLEAN"
     OBJECT = "OBJECT"
+
+    EEGDATA = "EEGData"
+    EPOCHS = "EPOCHS"
+    FEATUREVECTOR = "FeatureVector"
+    MODEL = "Model"
 ```
 
 To define a block in python, as shown in the last image, we need to follow the design pattern
@@ -224,6 +234,7 @@ These outputs are called the **stdout**. This **stdout** is determined from the 
 ```python 
 - ("[string you want to display]", "STRING")
 - (None, "GRAPH")
+- ("<Keras model objects>","Model")
 ```
 - **Note: Nothing will be displayed if you return anything other than the above two formats.**
 - For type="STRING", check the return format for the **Constant** block shown above.  
@@ -299,8 +310,8 @@ Note: For a module, always follow a proper directory structure of the family. Ta
    └── __init__.py
 ```
 
-Lastly:
-- The outermost **\_\_init__.py** file should contain a dictionary variable called ```string_classobject_mapping```. The ```string_classobject_mapping``` is dict with key as ```CustomBlockclass.name``` and value as the instance of your custom block class, ```CustomBlockclass()```  
+Lastly **(VERY IMPORTANT)**:
+- The outermost **\_\_init__.py** file must contain a dictionary variable called ```string_classobject_mapping```. The ```string_classobject_mapping``` is dict with key as ```CustomBlockclass.name``` and value as the instance of your custom block class, ```CustomBlockclass()```  
 
 For Arithmetic module, the outermost **\_\_init__.py** file contains:  
 
@@ -320,4 +331,4 @@ string_classobject_mapping = {
 }
 ```
 
-Check [Arithmetic Module](https://github.com/ronak66/EEG-Workflow-System/tree/master/blocks/Arithmetic) for better understanding.
+Check [Arithmetic Module](https://github.com/ronak66/EEG-Workflow-System/tree/master/blocks/Arithmetic)  and [EEG_Basil Module](https://github.com/ronak66/EEG-Workflow-System/tree/master/blocks/EEG_Basil) for better understanding.

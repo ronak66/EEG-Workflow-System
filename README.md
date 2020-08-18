@@ -23,6 +23,8 @@
  
  - In GSoC 2020 we are shifting the server-part and the deep-learning-part to Python (version 3.6) using Flask and Tensorflow respectively. The reason behind the shift is the availability of better deep-learning and mne libraries in python for EEG processing. There has been no change in the UI, the UI code is the same as that of gsoc2018.
 
+ - In-order to contribute please check the [documentation](https://ronak66.github.io/EEG-Workflow-System/). It contains the system docs and contribution guide.
+
 
 
 ## Run Locally
