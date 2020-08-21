@@ -44,6 +44,15 @@ class FeatureLabeling(Block):
         self.labels.set_value(data['Labels'])
 
     def execute(self):
+        '''
+        Here every comma separated event ids are assigned same class.
+        For exmaple if the block parameter is:
+            - [ '2,4', '3', '5,6' ]
+            - So classes are assigned like:
+                - event id 2 and 4 are assigned class 0
+                - event id 3 is assigned class 1
+                - event id 5 and 5 are assigned class 2
+        '''
         event_class_mp = self.event_class_mapping()
         features = []
         for feature in self.feature_vector.value:
