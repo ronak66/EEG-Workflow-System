@@ -20,3 +20,5 @@ gunicorn==19.9.0
 # psycopg2>=2.7,<2.8 --no-binary psycopg2
 psycopg2-binary==2.8.5
 PyWavelets==1.1.1
+Flask_Migrate==2.5.3
+Flask_Script==2.0.6
