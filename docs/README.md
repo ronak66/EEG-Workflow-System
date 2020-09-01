@@ -4,6 +4,9 @@
 [![IEEE Paper](https://img.shields.io/badge/IEEE%20Explore-Paper-success.svg?style=for-the-badge&logo=internet-archive)](https://ieeexplore.ieee.org/document/8941664)
 [![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)]()
 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/swDKwx1n5mQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Contents of the Documentation
 
 1. [EEG Blocks Documentation](eeg-blocks.md)
