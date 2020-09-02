@@ -45,6 +45,7 @@ $ sudo apt-get install redis-server
 ```
 **4. Install all the required dependencies**    
 ```
+$ pip3 install Flask-Script
 $ pip3 install -r requirements.txt
 ```
 **5. Setup Database**
@@ -56,7 +57,7 @@ $ python3 manage.py db upgrade
 ```
 $ python3 server.py
 ```
-* Run redis worker on another terminal (inside EEG-Workflow-System directory)
+* Run redis worker on another terminal (inside EEG-Workflow-System directory and enviroment)
 ```
 $ celery worker -A app.celery --loglevel=info
 ```

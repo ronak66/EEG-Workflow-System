@@ -149,6 +149,9 @@ def schedule_new_job(data):
         )
         new_job.save()
 
+        if not os.path.exists('{}/.EEGWorkflow/Jobs'.format(os.path.expanduser('~'))):
+            os.mkdir('{}/Jobs'.format(FILE_BASE_PATH))
+
         path = '{}/Jobs/{}'.format(FILE_BASE_PATH,new_job.id)
         os.mkdir(path) 
 
