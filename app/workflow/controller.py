@@ -202,7 +202,7 @@ def get_all_scheduled_jobs():
             "status": job.status
         }
         job_list.append(job_details)
-    return json.dumps(job_list)
+    return json.dumps(job_list[::-1])
 
 @Auth.auth_required
 def get_job_details(data):
