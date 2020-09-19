@@ -27,7 +27,7 @@
 
 
 
-## Run Locally
+## Build from Source
 **1. Clone the repo**
 ```
 $ git clone https://github.com/ronak66/EEG-Workflow-System.git
@@ -61,6 +61,22 @@ $ python3 server.py
 ```
 $ celery worker -A app.celery --loglevel=info
 ```
+
+## Build using Docker
+
+**1. Install Docker:** [Instalation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04#step-1-%E2%80%94-installing-docker)  
+**2. Install Docker-Compose:** [Instalation Guide](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04#step-1-%E2%80%94-installing-docker-compose)  
+**3. Clone the repo**  
+```
+$ git clone https://github.com/ronak66/EEG-Workflow-System.git  
+$ cd EEG-Workflow-System
+```
+**4. Build the run the docker image**
+```
+$ sudo docker-compose up --build
+``` 
+
+
 
 ## Copyright
  
