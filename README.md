@@ -71,7 +71,7 @@ $ celery worker -A app.celery --loglevel=info
 $ git clone https://github.com/ronak66/EEG-Workflow-System.git  
 $ cd EEG-Workflow-System
 ```
-**4. Build the run the docker image**
+**4. Build and run the docker image**
 ```
 $ sudo docker-compose up --build
 ``` 
