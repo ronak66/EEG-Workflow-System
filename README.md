@@ -19,9 +19,7 @@
   - GSoC 2020 EEG and deep learning workflow project is developed and handled by [Ronak Doshi](https://github.com/ronak66) under the guidance and mentorship of [Lukáš Vařeka](http://neuroinformatics.kiv.zcu.cz/actions/read/lukas-vareka_2015-01-27)
  
  - This project is a continuation of the project developed in Google Summer of Code 2018 by [Joey Pinto](https://github.com/pintojoey) under the mentorship of the International 
- Neuroinformatics Coordinating Facility, Sweden. The GSoC 2018 project was written in Java (server and deep-learning part)
- 
- - In GSoC 2020 we are shifting the server-part and the deep-learning-part to Python (version 3.6) using Flask and Tensorflow respectively. The reason behind the shift is the availability of better deep-learning and mne libraries in python for EEG processing. There has been no change in the UI, the UI code is the same as that of gsoc2018.
+ Neuroinformatics Coordinating Facility, Sweden.
 
  - In-order to contribute please check the [documentation](https://ronak66.github.io/EEG-Workflow-System/). It contains the system docs and contribution guide.
 
