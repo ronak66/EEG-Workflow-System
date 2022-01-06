@@ -6,7 +6,7 @@ tensorflow==1.15.2
 numpy==1.18.3
 opencv_python==4.1.2.30
 Flask_SQLAlchemy==2.4.1
-celery==4.4.5
+celery==5.2.2
 Keras==2.3.1
 mne==0.19.2
 Flask_Bcrypt==0.7.1
