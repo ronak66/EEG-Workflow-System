@@ -11,7 +11,7 @@ Keras==2.3.1
 mne==0.19.2
 Flask_Bcrypt==0.7.1
 Pillow==7.2.0
-PyJWT==1.7.1
+PyJWT==2.4.0
 scikit_learn==0.23.1
 redis==3.5.3
 gunicorn==19.9.0
