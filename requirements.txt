@@ -10,7 +10,7 @@ celery==4.4.5
 Keras==2.3.1
 mne==0.19.2
 Flask_Bcrypt==0.7.1
-Pillow==7.2.0
+Pillow==9.3.0
 PyJWT==1.7.1
 scikit_learn==0.23.1
 redis==3.5.3
